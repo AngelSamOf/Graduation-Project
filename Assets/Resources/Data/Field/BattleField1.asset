@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acbfe4bcf850c74184fb88fed1d66b0, type: 3}
+  m_Name: BattleField1
+  m_EditorClassIdentifier: 
+  _sizeX: 8
+  _sizeY: 8
+  _steapX: 1.1
+  _steapY: 1.1
+  _symbols:
+  - _weight: 0.5
+    _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
+  - _weight: 0.5
+    _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
+  _cell: {fileID: 1065438816524251268, guid: b38b9c8a4de68394787e1c8253f5f7db, type: 3}

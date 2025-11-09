@@ -72,14 +72,16 @@ public class ContractInitField
         List<SymbolBase> symbolList = new();
         foreach (Transform cell in field)
         {
-            Component symbolPrefab = GetSymbol(storage.FieldData.Symbols).Prefab;
+            SymbolObject symbolData = GetSymbol(storage.FieldData.Symbols);
             Component symbol = Component.Instantiate(
-                symbolPrefab,
+                symbolData.Prefab,
                 new Vector3(cell.position.x, cell.position.y),
                 Quaternion.identity
             );
             symbol.transform.SetParent(storage.Components.SymbolContainer);
-            symbolList.Add(symbol.GetComponent<SymbolBase>());
+            SymbolBase symbolBase = symbol.GetComponent<SymbolBase>();
+            symbolBase.SetSymbolData(symbolData);
+            symbolList.Add(symbolBase);
         }
         return symbolList;
     }
@@ -87,17 +89,15 @@ public class ContractInitField
     private SymbolObject GetSymbol(List<FieldSymbol> symbols)
     {
         float targetWeight = Random.value;
-        float totalWeight = 0;
         for (int i = 0; i < symbols.Count; i++)
         {
-            float currentWeight = symbols[i].Weight + totalWeight;
-            if (currentWeight >= targetWeight)
+            if (symbols[i].Weight >= targetWeight)
             {
                 return symbols[i].Symbol;
             }
             else
             {
-                totalWeight += symbols[i].Weight;
+                targetWeight -= symbols[i].Weight;
             }
         }
         return null;
@@ -107,9 +107,9 @@ public class ContractInitField
     {
         T[,] array = new T[storage.FieldData.SizeX, storage.FieldData.SizeY];
         int index = 0;
-        for (int x = 0; x < storage.FieldData.SizeX; x++)
+        for (int y = 0; y < storage.FieldData.SizeY; y++)
         {
-            for (int y = 0; y < storage.FieldData.SizeY; y++)
+            for (int x = 0; x < storage.FieldData.SizeX; x++)
             {
                 array[x, y] = list[index];
                 index++;

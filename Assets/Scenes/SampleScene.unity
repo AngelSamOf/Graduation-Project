@@ -325,7 +325,6 @@ MonoBehaviour:
   _components:
     _fieldContainer: {fileID: 1205186082}
     _symbolContainer: {fileID: 470369574}
-    _cellPrefab: {fileID: 1065438816524251268, guid: b38b9c8a4de68394787e1c8253f5f7db, type: 3}
   _field: {fileID: 11400000, guid: 30d17a50aa4c7fa4cb287f1a4d011f3c, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

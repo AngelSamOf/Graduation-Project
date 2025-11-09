@@ -2,5 +2,11 @@ using UnityEngine;
 
 public class SymbolBase : MonoBehaviour
 {
-    void Start() { }
+    public SymbolObject SymbolData => _symbolData;
+    private SymbolObject _symbolData;
+
+    public void SetSymbolData(SymbolObject data)
+    {
+        _symbolData = data;
+    }
 }

@@ -17,8 +17,20 @@ MonoBehaviour:
   _steapX: 1.1
   _steapY: 1.1
   _symbols:
-  - _weight: 0.5
+  - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
-  - _weight: 0.5
+  - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: 70d9b26e919123a4ba29cb32cc236b73, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: dbb2908bd5e14b14498e1ab95d38a40b, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: 1303b30b2682024468bc558a90a22746, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: 79a2b271ebf151d40b72c9f59259586b, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: 0089082dd87e66a4ca89bfadc2c604da, type: 2}
+  - _weight: 0.125
+    _symbol: {fileID: 11400000, guid: 589b9bb539385ad4896671d63192da29, type: 2}
   _cell: {fileID: 1065438816524251268, guid: b38b9c8a4de68394787e1c8253f5f7db, type: 3}

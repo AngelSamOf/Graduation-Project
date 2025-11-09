@@ -24,12 +24,12 @@ public class ContractInitField
 
         // Получение данных
         List<Transform> cellList = this.GenerateField();
-        List<ISymbol> symbolsList = this.GenerateSymbol(cellList);
+        List<SymbolBase> symbolsList = this.GenerateSymbol(cellList);
 
         //Сохранение данных
         Transform[,] fieldMap = ListToArray<Transform>(cellList);
         storage.SetFieldMap(fieldMap);
-        ISymbol[,] symbolMap = ListToArray<ISymbol>(symbolsList);
+        SymbolBase[,] symbolMap = ListToArray<SymbolBase>(symbolsList);
         storage.SetSymbolMap(symbolMap);
         Debug.Log("Contract \"InitField\": end Implement");
     }
@@ -67,9 +67,9 @@ public class ContractInitField
         return cellList;
     }
 
-    private List<ISymbol> GenerateSymbol(List<Transform> field)
+    private List<SymbolBase> GenerateSymbol(List<Transform> field)
     {
-        List<ISymbol> symbolList = new();
+        List<SymbolBase> symbolList = new();
         foreach (Transform cell in field)
         {
             Component symbolPrefab = GetSymbol(storage.FieldData.Symbols).Prefab;
@@ -79,7 +79,7 @@ public class ContractInitField
                 Quaternion.identity
             );
             symbol.transform.SetParent(storage.Components.SymbolContainer);
-            symbolList.Add(symbol.GetComponent<ISymbol>());
+            symbolList.Add(symbol.GetComponent<SymbolBase>());
         }
         return symbolList;
     }

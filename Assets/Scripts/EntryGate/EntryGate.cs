@@ -14,5 +14,8 @@ public class EntryGate : MonoBehaviour
         // Инициализация поля
         ContractInitField fieldInit = ContractInitField.GetInstance();
         fieldInit.Implement();
+        // Проверка сгенерированного поля на победные комбинации
+        ContractCheckField checkField = ContractCheckField.GetInstance();
+        checkField.Implement();
     }
 }

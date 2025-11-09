@@ -35,9 +35,9 @@ public class BattleStorage
         _fieldMap = data;
     }
 
-    public ISymbol[,] SymbolMap => _symbolMap;
-    private ISymbol[,] _symbolMap;
-    public void SetSymbolMap(ISymbol[,] data)
+    public SymbolBase[,] SymbolMap => _symbolMap;
+    private SymbolBase[,] _symbolMap;
+    public void SetSymbolMap(SymbolBase[,] data)
     {
         _symbolMap = data;
     }

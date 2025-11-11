@@ -60,11 +60,14 @@ public class ContractSymbolMove
         CellBase targetCell = storage.FieldMap[targetPosition.X, targetPosition.Y];
 
         // Установка новых позиций символов
-        SymbolBase temp = storage.SymbolMap[targetPosition.X, targetPosition.Y];
-        storage.SymbolMap[targetPosition.X, targetPosition.Y] =
-            storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y];
-        storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y] = temp;
-
+        (
+            storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y],
+            storage.SymbolMap[targetPosition.X, targetPosition.Y]
+        ) =
+        (
+            storage.SymbolMap[targetPosition.X, targetPosition.Y],
+            storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y]
+        );
         targetSymbol.SetPosition(currentSymbol.Position);
         currentSymbol.SetPosition(targetPosition);
 

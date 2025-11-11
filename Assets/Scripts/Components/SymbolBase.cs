@@ -52,6 +52,11 @@ public class SymbolBase :
             return;
         }
 
+        if (_startPos == new Vector3(eventData.position.x, eventData.position.y))
+        {
+            return;
+        }
+
         MoveDirection direction = CheckDirection(_startPos, eventData.position);
         _isMove = false;
 
@@ -70,7 +75,7 @@ public class SymbolBase :
         float differenceX = endPos.x - startPos.x;
         float differenceY = endPos.y - startPos.y;
 
-        if (Math.Abs(differenceX) >= Math.Abs(differenceY))
+        if (Math.Abs(differenceX) > Math.Abs(differenceY))
         {
             return differenceX > 0 ?
                 MoveDirection.horizontalRight :

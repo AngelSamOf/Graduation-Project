@@ -27,20 +27,22 @@ public class ContractCheckField
         // Начало просчёта (горизонтальных)
         for (int x = 0; x < storage.FieldData.SizeX; x++)
         {
-            CheckCell(x, 0, new(), Direction.vertical);
+            CheckCell(x, 0, null, Direction.vertical);
         }
         // Начало просчёта (вертикальных)
         for (int y = 0; y < storage.FieldData.SizeY; y++)
         {
-            CheckCell(0, y, new(), Direction.horizontal);
+            CheckCell(0, y, null, Direction.horizontal);
         }
+        // Вывод всех победных комбинаций
+        PrintWinCombination();
         Debug.Log("Contract \"CheckField\": end Implement");
     }
 
     private void CheckCell(
         int x,
         int y,
-        List<CellSymbol> combination,
+        WinCombination combination,
         Direction direction
     )
     {
@@ -57,34 +59,23 @@ public class ContractCheckField
         SymbolBase symbol = storage.SymbolMap[x, y];
         string symbolID = symbol.SymbolData.ID;
         // Старт новой комбинации
-        if (combination.Count == 0)
+        if (combination == null)
         {
-            List<CellSymbol> newCombination = new()
-            {
-                new(x, y, symbolID)
-            };
+            WinCombination newCombination = new(symbolID, new() { new(x, y) });
             NextSymbol(x, y, newCombination, direction);
             return;
         }
 
-        // if (direction == Direction.horizontal)
-        // {
-        //     Debug.Log($"${x}:{y} ({combination[0].ID} = {symbolID})");
-        // }
-
         // Проверка входит ли символ в комбинацию
-        if (combination[0].ID == symbolID)
+        if (combination.ID == symbolID)
         {
-            combination.Add(new(x, y, symbolID));
+            combination.Positions.Add(new(x, y));
             NextSymbol(x, y, combination, direction);
         }
         else
         {
             SaveCombination(combination);
-            List<CellSymbol> newCombination = new()
-            {
-                new(x, y, symbolID)
-            };
+            WinCombination newCombination = new(symbolID, new() { new(x, y) });
             NextSymbol(x, y, newCombination, direction);
         }
     }
@@ -92,7 +83,7 @@ public class ContractCheckField
     private void NextSymbol(
         int x,
         int y,
-        List<CellSymbol> combination,
+        WinCombination combination,
         Direction direction
     )
     {
@@ -106,45 +97,31 @@ public class ContractCheckField
         }
     }
 
-    private void SaveCombination(List<CellSymbol> combination)
+    private void SaveCombination(WinCombination combination)
     {
-        if (combination.Count < 3)
+        if (combination.Positions.Count < 3)
         {
             return;
         }
+        storage.AddWin(combination);
+    }
 
-        StringBuilder str = new();
-        foreach (CellSymbol symbol in combination)
+    private void PrintWinCombination()
+    {
+        foreach (WinCombination win in storage.Wins)
         {
-            str.Append($"{symbol.X}:{symbol.Y},");
+            StringBuilder str = new();
+            foreach (CellPosition symbol in win.Positions)
+            {
+                str.Append($"{symbol.X}:{symbol.Y},");
+            }
+            Debug.Log($"{win.ID}: {str}");
         }
-        Debug.Log($"{combination[0].ID}: {str}");
     }
 
     private enum Direction
     {
         horizontal = 0,
         vertical = 1
-    }
-
-    private class CellSymbol
-    {
-        public int X => _x;
-        private int _x;
-        public int Y => _y;
-        private int _y;
-        public string ID => _id;
-        private string _id;
-
-        public CellSymbol(
-            int x,
-            int y,
-            string id
-        )
-        {
-            _x = x;
-            _y = y;
-            _id = id;
-        }
     }
 }

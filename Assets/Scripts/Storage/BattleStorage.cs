@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleStorage
@@ -41,6 +42,17 @@ public class BattleStorage
     {
         _symbolMap = data;
     }
+
+    public List<WinCombination> Wins => _wins;
+    private List<WinCombination> _wins = new();
+    public void AddWin(WinCombination win)
+    {
+        _wins.Add(win);
+    }
+    public void ClearWind()
+    {
+        _wins.Clear();
+    }
 }
 
 [Serializable]
@@ -51,4 +63,38 @@ public class DefaulComponents
 
     public Transform SymbolContainer => _symbolContainer;
     [SerializeField] protected Transform _symbolContainer;
+}
+
+public class WinCombination
+{
+    public string ID => _id;
+    private string _id;
+    public List<CellPosition> Positions => _positions;
+    private List<CellPosition> _positions = new();
+
+    public WinCombination(
+        string id,
+        List<CellPosition> positions
+    )
+    {
+        _id = id;
+        _positions = positions;
+    }
+}
+
+public class CellPosition
+{
+    public int X => _x;
+    private int _x;
+    public int Y => _y;
+    private int _y;
+
+    public CellPosition(
+        int x,
+        int y
+    )
+    {
+        _x = x;
+        _y = y;
+    }
 }

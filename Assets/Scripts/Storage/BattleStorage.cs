@@ -51,7 +51,7 @@ public class BattleStorage
     {
         _wins.Add(win);
     }
-    public void ClearWind()
+    public void ClearWins()
     {
         _wins.Clear();
     }

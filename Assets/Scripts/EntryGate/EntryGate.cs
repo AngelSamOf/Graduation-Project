@@ -1,29 +1,35 @@
-using System;
 using UnityEngine;
 
 public class EntryGate : MonoBehaviour
 {
     [SerializeField] protected DefaulComponents _components;
     [SerializeField] protected FieldObject _field;
-
-
+    protected BattleStorage _storage;
 
     void Start()
     {
+        // Инициализация
         // Инициализация хранилища
-        BattleStorage storage = BattleStorage.GetInstance();
-        storage.SetComponents(_components);
-        storage.SetFieldData(_field);
+        _storage = BattleStorage.GetInstance();
+        _storage.SetComponents(_components);
+        _storage.SetFieldData(_field);
         // Инициализация поля
-        ContractInitField fieldInit = ContractInitField.GetInstance();
-        fieldInit.Implement();
+        ContractInitField.GetInstance().Implement();
         // Проверка сгенерированного поля на победные комбинации
-        ContractCheckField checkField = ContractCheckField.GetInstance();
-        checkField.Implement();
+        ContractCheckField.GetInstance().Implement();
 
         // Подписки на события
         // Подписка на перемещение символа на поле
-        ContractSymbolMove contract = ContractSymbolMove.GetInstance();
-        EventEmitter.MoveSymbol = contract.Implement;
+        EventEmitter.MoveSymbol = SymbolMove;
+    }
+
+    private void SymbolMove(MoveDirection direction, SymbolBase symbol)
+    {
+        // Перемещение символа
+        ContractSymbolMove.GetInstance().Implement(direction, symbol);
+        // Проверка на победные комбинации
+        ContractCheckField.GetInstance().Implement();
+        // Удаление всех победных комбинаций
+        _storage.ClearWins();
     }
 }

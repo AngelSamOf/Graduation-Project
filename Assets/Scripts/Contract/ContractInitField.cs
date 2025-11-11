@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ContractInitField
@@ -23,20 +24,20 @@ public class ContractInitField
         storage = BattleStorage.GetInstance();
 
         // Получение данных
-        List<Transform> cellList = this.GenerateField();
+        List<CellBase> cellList = this.GenerateField();
         List<SymbolBase> symbolsList = this.GenerateSymbol(cellList);
 
         //Сохранение данных
-        Transform[,] fieldMap = ListToArray<Transform>(cellList);
+        CellBase[,] fieldMap = ListToArray<CellBase>(cellList);
         storage.SetFieldMap(fieldMap);
         SymbolBase[,] symbolMap = ListToArray<SymbolBase>(symbolsList);
         storage.SetSymbolMap(symbolMap);
         Debug.Log("Contract \"InitField\": end Implement");
     }
 
-    private List<Transform> GenerateField()
+    private List<CellBase> GenerateField()
     {
-        List<Transform> cellList = new();
+        List<CellBase> cellList = new();
 
         for (int y = 0; y < storage.FieldData.SizeY; y++)
         {
@@ -52,8 +53,10 @@ public class ContractInitField
                     Quaternion.identity
                 );
                 cell.transform.SetParent(storage.Components.FieldContainer);
+                CellBase cellBase = cell.AddComponent<CellBase>();
+                cellBase.Init(new(x, y));
                 cell.name = $"{x}-{y}";
-                cellList.Add(cell.transform);
+                cellList.Add(cellBase);
             }
         }
         storage.Components.FieldContainer.position = new Vector3(
@@ -67,20 +70,24 @@ public class ContractInitField
         return cellList;
     }
 
-    private List<SymbolBase> GenerateSymbol(List<Transform> field)
+    private List<SymbolBase> GenerateSymbol(List<CellBase> field)
     {
         List<SymbolBase> symbolList = new();
-        foreach (Transform cell in field)
+        foreach (CellBase cell in field)
         {
             SymbolObject symbolData = GetSymbol(storage.FieldData.Symbols);
             Component symbol = Component.Instantiate(
                 symbolData.Prefab,
-                new Vector3(cell.position.x, cell.position.y),
+                new Vector3(
+                    cell.NodeTransform.position.x,
+                    cell.NodeTransform.position.y
+                ),
                 Quaternion.identity
             );
             symbol.transform.SetParent(storage.Components.SymbolContainer);
-            SymbolBase symbolBase = symbol.GetComponent<SymbolBase>();
+            SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
             symbolBase.SetSymbolData(symbolData);
+            symbolBase.SetPosition(cell.Position.X, cell.Position.Y);
             symbolList.Add(symbolBase);
         }
         return symbolList;

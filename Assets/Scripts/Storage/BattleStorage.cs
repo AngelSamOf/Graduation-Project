@@ -15,6 +15,8 @@ public class BattleStorage
         return _instance;
     }
 
+    public readonly Constants Constants = new();
+
     public DefaulComponents Components => _components;
     private DefaulComponents _components;
     public void SetComponents(DefaulComponents data)
@@ -29,9 +31,9 @@ public class BattleStorage
         _fieldData = data;
     }
 
-    public Transform[,] FieldMap => _fieldMap;
-    private Transform[,] _fieldMap;
-    public void SetFieldMap(Transform[,] data)
+    public CellBase[,] FieldMap => _fieldMap;
+    private CellBase[,] _fieldMap;
+    public void SetFieldMap(CellBase[,] data)
     {
         _fieldMap = data;
     }
@@ -97,4 +99,22 @@ public class CellPosition
         _x = x;
         _y = y;
     }
+
+    public void UpdatePos(int x, int y)
+    {
+        _x = x;
+        _y = y;
+    }
+
+    public CellPosition Clone()
+    {
+        return new(_x, _y);
+    }
+}
+
+public class Constants
+{
+    public readonly float MoveTime = 0.5f;
+    public readonly float ShiftTime = 0.2f;
+    public readonly float ShiftMove = 0.2f;
 }

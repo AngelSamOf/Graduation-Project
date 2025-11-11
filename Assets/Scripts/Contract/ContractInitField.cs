@@ -28,9 +28,9 @@ public class ContractInitField
         List<SymbolBase> symbolsList = this.GenerateSymbol(cellList);
 
         //Сохранение данных
-        CellBase[,] fieldMap = ListToArray<CellBase>(cellList);
+        CellBase[,] fieldMap = ListToArray(cellList);
         storage.SetFieldMap(fieldMap);
-        SymbolBase[,] symbolMap = ListToArray<SymbolBase>(symbolsList);
+        SymbolBase[,] symbolMap = ListToArray(symbolsList);
         storage.SetSymbolMap(symbolMap);
         Debug.Log("Contract \"InitField\": end Implement");
     }
@@ -44,7 +44,7 @@ public class ContractInitField
             for (int x = 0; x < storage.FieldData.SizeX; x++)
             {
 
-                Component cell = Component.Instantiate(
+                Component cell = Object.Instantiate(
                     storage.FieldData.Cell,
                     new Vector3(
                         x * storage.FieldData.SteapX,
@@ -76,11 +76,11 @@ public class ContractInitField
         foreach (CellBase cell in field)
         {
             SymbolObject symbolData = GetSymbol(storage.FieldData.Symbols);
-            Component symbol = Component.Instantiate(
+            Component symbol = Object.Instantiate(
                 symbolData.Prefab,
                 new Vector3(
-                    cell.NodeTransform.position.x,
-                    cell.NodeTransform.position.y
+                    cell.transform.position.x,
+                    cell.transform.position.y
                 ),
                 Quaternion.identity
             );

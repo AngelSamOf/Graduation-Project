@@ -39,19 +39,10 @@ public class ContractSymbolMove
             targetPosition.Y >= storage.FieldData.SizeY
         )
         {
-            currentSymbol.gameObject.AddComponent<MoveAction>()
-                .MoveWithTime(
-                    storage.Constants.ShiftTime,
-                    currentCell.NodeTransform.localPosition + GetOutDirection(direction),
-                    () =>
-                    {
-                        currentSymbol.gameObject.AddComponent<MoveAction>()
-                        .MoveWithTime(
-                            storage.Constants.ShiftTime,
-                            currentCell.NodeTransform.localPosition
-                        );
-                    }
-                );
+            currentSymbol.MoveSymbolAndReturn(
+                storage.Constants.ShiftTime,
+                currentCell.transform.localPosition + GetOutDirection(direction)
+            );
             return;
         }
 
@@ -72,16 +63,14 @@ public class ContractSymbolMove
         currentSymbol.SetPosition(targetPosition);
 
         // Запуск анимаций смены
-        currentSymbol.gameObject.AddComponent<MoveAction>()
-            .MoveWithTime(
-                storage.Constants.MoveTime,
-                targetCell.NodeTransform.localPosition
-            );
-        targetSymbol.gameObject.AddComponent<MoveAction>()
-            .MoveWithTime(
-                storage.Constants.MoveTime,
-                currentCell.NodeTransform.localPosition
-            );
+        currentSymbol.MoveSymbol(
+            storage.Constants.MoveTime,
+            targetCell.transform.localPosition
+        );
+        targetSymbol.MoveSymbol(
+            storage.Constants.MoveTime,
+            currentCell.transform.localPosition
+        );
 
         Debug.Log("Contract \"SymbolMove\": end Implement");
     }

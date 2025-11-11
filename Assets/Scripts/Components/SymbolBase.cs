@@ -59,10 +59,8 @@ public class SymbolBase :
 
         MoveDirection direction = CheckDirection(_startPos, eventData.position);
         _isMove = false;
-
-        // Запуск контракта
-        ContractSymbolMove contract = ContractSymbolMove.GetInstance();
-        contract.Implement(direction, this);
+        // Вызов события на обновление позиции
+        EventEmitter.MoveSymbol(direction, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -87,5 +85,27 @@ public class SymbolBase :
                 MoveDirection.vertivalTop :
                 MoveDirection.verticalBottom;
         }
+    }
+
+    public void MoveSymbol(float time, Vector3 position)
+    {
+        this.AddComponent<MoveAction>()
+            .MoveWithTime(time, position);
+    }
+
+    public void MoveSymbolAndReturn(
+        float time,
+        Vector3 positionTarget
+    )
+    {
+        Vector3 startPosition = transform.localPosition;
+
+        this.AddComponent<MoveAction>()
+            .MoveWithTime(time, positionTarget, () =>
+            {
+                this.AddComponent<MoveAction>()
+                .MoveWithTime(time, startPosition);
+            }
+        );
     }
 }

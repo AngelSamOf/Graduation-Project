@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Symbol5
   m_EditorClassIdentifier: 
   _id: s5
-  _prefab: {fileID: 4895622964829160507, guid: c580511cc6b3e30479699bc489297090, type: 3}
+  _texture: {fileID: 21300000, guid: 421e15dc6126ff544b96050679189b36, type: 3}

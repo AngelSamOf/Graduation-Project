@@ -5,6 +5,6 @@ public class SymbolObject : ScriptableObject
 {
     public string ID => _id;
     [SerializeField] private string _id;
-    public Component Prefab => _prefab;
-    [SerializeField] private Component _prefab;
+    public Sprite Texture => _texture;
+    [SerializeField] private Sprite _texture;
 }

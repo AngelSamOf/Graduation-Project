@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Symbol6
   m_EditorClassIdentifier: 
   _id: s6
-  _prefab: {fileID: 4895622964829160507, guid: f3a66d0f83b04974aa7b64c1ff6a048c, type: 3}
+  _texture: {fileID: 21300000, guid: 039a96758d9c45f4b9c31b7587dbd0e1, type: 3}

@@ -2,5 +2,5 @@ using System;
 
 static class EventEmitter
 {
-    static public Action<MoveDirection, SymbolBase> MoveSymbol;
+    static public Action<Direction, SymbolBase> MoveSymbol;
 }

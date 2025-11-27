@@ -17,7 +17,7 @@ public class ContractSymbolMove
     }
 
     public void Implement(
-        MoveDirection direction,
+        Direction direction,
         SymbolBase symbol
     )
     {
@@ -50,17 +50,8 @@ public class ContractSymbolMove
         SymbolBase targetSymbol = storage.SymbolMap[targetPosition.X, targetPosition.Y];
         CellBase targetCell = storage.FieldMap[targetPosition.X, targetPosition.Y];
 
-        // Установка новых позиций символов
-        (
-            storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y],
-            storage.SymbolMap[targetPosition.X, targetPosition.Y]
-        ) =
-        (
-            storage.SymbolMap[targetPosition.X, targetPosition.Y],
-            storage.SymbolMap[currentSymbol.Position.X, currentSymbol.Position.Y]
-        );
-        targetSymbol.SetPosition(currentSymbol.Position);
-        currentSymbol.SetPosition(targetPosition);
+        // Смена позиций символов
+        SymbolMethods.SwapPosition(storage, currentSymbol, targetSymbol);
 
         // Запуск анимаций смены
         currentSymbol.MoveSymbol(
@@ -76,19 +67,19 @@ public class ContractSymbolMove
     }
 
     private CellPosition GetTargetPosition(
-        MoveDirection direction,
+        Direction direction,
         CellPosition position
     )
     {
         switch (direction)
         {
-            case MoveDirection.horizontalRight:
+            case Direction.horizontalRight:
                 return new(position.X + 1, position.Y);
-            case MoveDirection.horizontalLeft:
+            case Direction.horizontalLeft:
                 return new(position.X - 1, position.Y);
-            case MoveDirection.vertivalTop:
+            case Direction.vertivalTop:
                 return new(position.X, position.Y - 1);
-            case MoveDirection.verticalBottom:
+            case Direction.verticalBottom:
                 return new(position.X, position.Y + 1);
             default:
                 return null;
@@ -96,29 +87,21 @@ public class ContractSymbolMove
     }
 
     private Vector3 GetOutDirection(
-        MoveDirection direction
+        Direction direction
     )
     {
         switch (direction)
         {
-            case MoveDirection.horizontalRight:
+            case Direction.horizontalRight:
                 return new(storage.Constants.ShiftMove, 0);
-            case MoveDirection.horizontalLeft:
+            case Direction.horizontalLeft:
                 return new(-storage.Constants.ShiftMove, 0);
-            case MoveDirection.vertivalTop:
+            case Direction.vertivalTop:
                 return new(0, storage.Constants.ShiftMove);
-            case MoveDirection.verticalBottom:
+            case Direction.verticalBottom:
                 return new(0, -storage.Constants.ShiftMove);
             default:
                 return Vector3.zero;
         }
     }
-}
-
-public enum MoveDirection
-{
-    horizontalLeft = 0,
-    horizontalRight = 1,
-    vertivalTop = 2,
-    verticalBottom = 3
 }

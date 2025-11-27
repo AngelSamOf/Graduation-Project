@@ -61,7 +61,11 @@ public class ContractCheckField
         // Старт новой комбинации
         if (combination == null)
         {
-            WinCombination newCombination = new(symbolID, new() { new(x, y) });
+            WinCombination newCombination = new(
+                symbolID,
+                new() { new(x, y) },
+                WinType.Win
+            );
             NextSymbol(x, y, newCombination, direction);
             return;
         }
@@ -75,7 +79,11 @@ public class ContractCheckField
         else
         {
             SaveCombination(combination);
-            WinCombination newCombination = new(symbolID, new() { new(x, y) });
+            WinCombination newCombination = new(
+                symbolID,
+                new() { new(x, y) },
+                WinType.Win
+            );
             NextSymbol(x, y, newCombination, direction);
         }
     }
@@ -115,13 +123,6 @@ public class ContractCheckField
             {
                 str.Append($"{symbol.X}:{symbol.Y},");
             }
-            Debug.Log($"{win.ID}: {str}");
         }
-    }
-
-    private enum Direction
-    {
-        horizontal = 0,
-        vertical = 1
     }
 }

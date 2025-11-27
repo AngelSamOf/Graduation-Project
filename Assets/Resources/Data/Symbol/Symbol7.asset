@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Symbol7
   m_EditorClassIdentifier: 
   _id: s7
-  _prefab: {fileID: 4895622964829160507, guid: 4cb5f29e04fb35c4b92f4e8c8eb0de68, type: 3}
+  _texture: {fileID: 21300000, guid: 1951c40847aab7540a4efea6f822c966, type: 3}

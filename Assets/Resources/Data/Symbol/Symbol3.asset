@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Symbol3
   m_EditorClassIdentifier: 
   _id: s3
-  _prefab: {fileID: 4895622964829160507, guid: c8499a910748ddc4ca15113b2d48d707, type: 3}
+  _texture: {fileID: 21300000, guid: 92db4ca5293f7824dafee191dd6d7681, type: 3}

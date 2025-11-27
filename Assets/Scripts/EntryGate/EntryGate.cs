@@ -17,19 +17,22 @@ public class EntryGate : MonoBehaviour
         ContractInitField.GetInstance().Implement();
         // Проверка сгенерированного поля на победные комбинации
         ContractCheckField.GetInstance().Implement();
+        // Удаление победных комбинаций
+        ContractCascade.GetInstance().Implement();
 
         // Подписки на события
         // Подписка на перемещение символа на поле
         EventEmitter.MoveSymbol = SymbolMove;
     }
 
-    private void SymbolMove(MoveDirection direction, SymbolBase symbol)
+    private void SymbolMove(Direction direction, SymbolBase symbol)
     {
         // Перемещение символа
         ContractSymbolMove.GetInstance().Implement(direction, symbol);
         // Проверка на победные комбинации
         ContractCheckField.GetInstance().Implement();
         // Удаление всех победных комбинаций
+        ContractCascade.GetInstance().Implement();
         _storage.ClearWins();
     }
 }

@@ -75,39 +75,20 @@ public class ContractInitField
         List<SymbolBase> symbolList = new();
         foreach (CellBase cell in field)
         {
-            SymbolObject symbolData = GetSymbol(storage.FieldData.Symbols);
-            Component symbol = Object.Instantiate(
-                symbolData.Prefab,
-                new Vector3(
-                    cell.transform.position.x,
-                    cell.transform.position.y
-                ),
-                Quaternion.identity
+            SymbolObject symbolData = SymbolMethods.GetRandomSymbol(storage);
+            GameObject symbol = new("Symbol");
+            symbol.transform.position = new(
+                cell.transform.position.x,
+                cell.transform.position.y
             );
             symbol.transform.SetParent(storage.Components.SymbolContainer);
             SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
             symbolBase.SetSymbolData(symbolData);
             symbolBase.SetPosition(cell.Position.X, cell.Position.Y);
+            symbolBase.Init();
             symbolList.Add(symbolBase);
         }
         return symbolList;
-    }
-
-    private SymbolObject GetSymbol(List<FieldSymbol> symbols)
-    {
-        float targetWeight = Random.value;
-        for (int i = 0; i < symbols.Count; i++)
-        {
-            if (symbols[i].Weight >= targetWeight)
-            {
-                return symbols[i].Symbol;
-            }
-            else
-            {
-                targetWeight -= symbols[i].Weight;
-            }
-        }
-        return null;
     }
 
     private T[,] ListToArray<T>(List<T> list)

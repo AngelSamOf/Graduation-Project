@@ -57,6 +57,7 @@ public class ContractSymbolMove
 
             await Task.WhenAll(tasks);
             Debug.Log("Contract \"Symbol Move\": end Implement");
+            _isImplement = false;
             return;
         }
 

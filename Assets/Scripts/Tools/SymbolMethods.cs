@@ -10,19 +10,21 @@ static class SymbolMethods
         SymbolBase secondSymbol
     )
     {
-        // Смена позиций в общем массиве
+        CellPosition firstPos = firstSymbol.Position.Clone();
+        CellPosition secondPos = secondSymbol.Position.Clone();
+
+        // Смена позиций в массиве
         (
-            storage.SymbolMap[firstSymbol.Position.X, firstSymbol.Position.Y],
-            storage.SymbolMap[secondSymbol.Position.X, secondSymbol.Position.Y]
-        ) =
-        (
-            storage.SymbolMap[secondSymbol.Position.X, secondSymbol.Position.Y],
-            storage.SymbolMap[firstSymbol.Position.X, firstSymbol.Position.Y]
+            storage.SymbolMap[secondPos.X, secondPos.Y],
+            storage.SymbolMap[firstPos.X, firstPos.Y]
+        ) = (
+            storage.SymbolMap[firstPos.X, firstPos.Y],
+            storage.SymbolMap[secondPos.X, secondPos.Y]
         );
 
-        // Смена позиций у символов
-        secondSymbol.SetPosition(firstSymbol.Position);
-        firstSymbol.SetPosition(secondSymbol.Position);
+        // Установка позиций у самих символов
+        firstSymbol.SetPosition(secondPos);
+        secondSymbol.SetPosition(firstPos);
     }
 
     static public SymbolObject GetRandomSymbol(BattleStorage storage)

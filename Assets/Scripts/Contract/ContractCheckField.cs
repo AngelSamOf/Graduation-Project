@@ -5,36 +5,33 @@ public class ContractCheckField
 {
     private static ContractCheckField _instance;
     private ContractCheckField() { }
-    private BattleStorage storage;
+    private BattleStorage _storage;
 
     public static ContractCheckField GetInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new();
-        }
+        _instance ??= new();
         return _instance;
     }
 
     public void Implement()
     {
-        Debug.Log("Contract \"CheckField\": start Implement");
+        Debug.Log("Contract \"Check Field\": start Implement");
         // Инициализация данных
-        storage = BattleStorage.GetInstance();
+        _storage = BattleStorage.GetInstance();
 
         // Начало просчёта (горизонтальных)
-        for (int x = 0; x < storage.FieldData.SizeX; x++)
+        for (int x = 0; x < _storage.FieldData.SizeX; x++)
         {
             CheckCell(x, 0, null, Direction.vertical);
         }
         // Начало просчёта (вертикальных)
-        for (int y = 0; y < storage.FieldData.SizeY; y++)
+        for (int y = 0; y < _storage.FieldData.SizeY; y++)
         {
             CheckCell(0, y, null, Direction.horizontal);
         }
         // Вывод всех победных комбинаций
         PrintWinCombination();
-        Debug.Log("Contract \"CheckField\": end Implement");
+        Debug.Log("Contract \"Check Field\": end Implement");
     }
 
     private void CheckCell(
@@ -46,15 +43,15 @@ public class ContractCheckField
     {
         // Проверка что нет выхода за пределы поля
         if (
-            x >= storage.FieldData.SizeX ||
-            y >= storage.FieldData.SizeY
+            x >= _storage.FieldData.SizeX ||
+            y >= _storage.FieldData.SizeY
         )
         {
             SaveCombination(combination);
             return;
         }
 
-        SymbolBase symbol = storage.SymbolMap[x, y];
+        SymbolBase symbol = _storage.SymbolMap[x, y];
         // Проверка на пустоту
         if (symbol == null || symbol.SymbolData == null)
         {
@@ -115,12 +112,12 @@ public class ContractCheckField
         {
             return;
         }
-        storage.AddWin(combination);
+        _storage.AddWin(combination);
     }
 
     private void PrintWinCombination()
     {
-        foreach (WinCombination win in storage.Wins)
+        foreach (WinCombination win in _storage.Wins)
         {
             StringBuilder str = new();
             foreach (CellPosition symbol in win.Positions)

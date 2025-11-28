@@ -7,7 +7,8 @@ public class ContractSymbolMove
 {
     private static ContractSymbolMove _instance;
     private ContractSymbolMove() { }
-    private BattleStorage storage;
+    private BattleStorage _storage;
+    private bool _isImplement = false;
 
     public static ContractSymbolMove GetInstance()
     {
@@ -23,14 +24,21 @@ public class ContractSymbolMove
         SymbolBase symbol
     )
     {
-        Debug.Log("Contract \"SymbolMove\": start Implement");
+        if (_isImplement)
+        {
+            Debug.Log("Contract \"Symbol Move\": aborted. There is already a running contract");
+            return;
+        }
+
+        Debug.Log("Contract \"Symbol Move\": start Implement");
+        _isImplement = true;
         // Инициализация данных
-        storage = BattleStorage.GetInstance();
+        _storage = BattleStorage.GetInstance();
         List<Task> tasks = new();
 
         // Получение текущего символа на поле
-        SymbolBase currentSymbol = storage.SymbolMap[symbol.Position.X, symbol.Position.Y];
-        CellBase currentCell = storage.FieldMap[symbol.Position.X, symbol.Position.Y];
+        SymbolBase currentSymbol = _storage.SymbolMap[symbol.Position.X, symbol.Position.Y];
+        CellBase currentCell = _storage.FieldMap[symbol.Position.X, symbol.Position.Y];
 
         // Получение новой позиции на поле
         CellPosition targetPosition = GetTargetPosition(direction, symbol.Position);
@@ -38,38 +46,40 @@ public class ContractSymbolMove
         if (
             targetPosition.X < 0 ||
             targetPosition.Y < 0 ||
-            targetPosition.X >= storage.FieldData.SizeX ||
-            targetPosition.Y >= storage.FieldData.SizeY
+            targetPosition.X >= _storage.FieldData.SizeX ||
+            targetPosition.Y >= _storage.FieldData.SizeY
         )
         {
             tasks.Add(currentSymbol.MoveSymbolAndReturn(
-                storage.Constants.ShiftTime,
+                _storage.Constants.ShiftTime,
                 currentCell.transform.localPosition + GetOutDirection(direction)
             ));
 
             await Task.WhenAll(tasks);
+            Debug.Log("Contract \"Symbol Move\": end Implement");
             return;
         }
 
         // Получение итогового символа на поле
-        SymbolBase targetSymbol = storage.SymbolMap[targetPosition.X, targetPosition.Y];
-        CellBase targetCell = storage.FieldMap[targetPosition.X, targetPosition.Y];
+        SymbolBase targetSymbol = _storage.SymbolMap[targetPosition.X, targetPosition.Y];
+        CellBase targetCell = _storage.FieldMap[targetPosition.X, targetPosition.Y];
 
         // Смена позиций символов
-        SymbolMethods.SwapPosition(storage, currentSymbol, targetSymbol);
+        SymbolMethods.SwapPosition(_storage, currentSymbol, targetSymbol);
 
         // Запуск анимаций смены
         tasks.Add(currentSymbol.MoveSymbol(
-            storage.Constants.MoveTime,
+            _storage.Constants.MoveTime,
             targetCell.transform.localPosition
         ));
         tasks.Add(targetSymbol.MoveSymbol(
-            storage.Constants.MoveTime,
+            _storage.Constants.MoveTime,
             currentCell.transform.localPosition
         ));
 
         await Task.WhenAll(tasks);
-        Debug.Log("Contract \"SymbolMove\": end Implement");
+        Debug.Log("Contract \"Symbol Move\": end Implement");
+        _isImplement = false;
     }
 
     private CellPosition GetTargetPosition(
@@ -99,13 +109,13 @@ public class ContractSymbolMove
         switch (direction)
         {
             case Direction.horizontalRight:
-                return new(storage.Constants.ShiftMove, 0);
+                return new(_storage.Constants.ShiftMove, 0);
             case Direction.horizontalLeft:
-                return new(-storage.Constants.ShiftMove, 0);
+                return new(-_storage.Constants.ShiftMove, 0);
             case Direction.verticalTop:
-                return new(0, storage.Constants.ShiftMove);
+                return new(0, _storage.Constants.ShiftMove);
             case Direction.verticalBottom:
-                return new(0, -storage.Constants.ShiftMove);
+                return new(0, -_storage.Constants.ShiftMove);
             default:
                 return Vector3.zero;
         }

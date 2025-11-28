@@ -6,22 +6,19 @@ public class ContractInitField
 {
     private static ContractInitField _instance;
     private ContractInitField() { }
-    private BattleStorage storage;
+    private BattleStorage _storage;
 
     public static ContractInitField GetInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new();
-        }
+        _instance ??= new();
         return _instance;
     }
 
     public void Implement()
     {
-        Debug.Log("Contract \"InitField\": start Implement");
+        Debug.Log("Contract \"Init Field\": start Implement");
         // Инициализация данных
-        storage = BattleStorage.GetInstance();
+        _storage = BattleStorage.GetInstance();
 
         // Получение данных
         List<CellBase> cellList = this.GenerateField();
@@ -29,43 +26,43 @@ public class ContractInitField
 
         //Сохранение данных
         CellBase[,] fieldMap = ListToArray(cellList);
-        storage.SetFieldMap(fieldMap);
+        _storage.SetFieldMap(fieldMap);
         SymbolBase[,] symbolMap = ListToArray(symbolsList);
-        storage.SetSymbolMap(symbolMap);
-        Debug.Log("Contract \"InitField\": end Implement");
+        _storage.SetSymbolMap(symbolMap);
+        Debug.Log("Contract \"Init Field\": end Implement");
     }
 
     private List<CellBase> GenerateField()
     {
         List<CellBase> cellList = new();
 
-        for (int y = 0; y < storage.FieldData.SizeY; y++)
+        for (int y = 0; y < _storage.FieldData.SizeY; y++)
         {
-            for (int x = 0; x < storage.FieldData.SizeX; x++)
+            for (int x = 0; x < _storage.FieldData.SizeX; x++)
             {
 
                 Component cell = Object.Instantiate(
-                    storage.FieldData.Cell,
+                    _storage.FieldData.Cell,
                     new Vector3(
-                        x * storage.FieldData.StepX,
-                        y * storage.FieldData.StepY * -1
+                        x * _storage.FieldData.StepX,
+                        y * _storage.FieldData.StepY * -1
                     ),
                     Quaternion.identity
                 );
-                cell.transform.SetParent(storage.Components.FieldContainer);
+                cell.transform.SetParent(_storage.Components.FieldContainer);
                 CellBase cellBase = cell.AddComponent<CellBase>();
                 cellBase.Init(new(x, y));
                 cell.name = $"{x}-{y}";
                 cellList.Add(cellBase);
             }
         }
-        storage.Components.FieldContainer.position = new Vector3(
-            storage.FieldData.SizeX / 2 * -1,
-            storage.FieldData.SizeY / 2
+        _storage.Components.FieldContainer.position = new Vector3(
+            _storage.FieldData.SizeX / 2 * -1,
+            _storage.FieldData.SizeY / 2
         );
-        storage.Components.SymbolContainer.position = new Vector3(
-            storage.FieldData.SizeX / 2 * -1,
-            storage.FieldData.SizeY / 2
+        _storage.Components.SymbolContainer.position = new Vector3(
+            _storage.FieldData.SizeX / 2 * -1,
+            _storage.FieldData.SizeY / 2
         );
         return cellList;
     }
@@ -75,13 +72,13 @@ public class ContractInitField
         List<SymbolBase> symbolList = new();
         foreach (CellBase cell in field)
         {
-            SymbolObject symbolData = SymbolMethods.GetRandomSymbol(storage);
+            SymbolObject symbolData = SymbolMethods.GetRandomSymbol(_storage);
             GameObject symbol = new("Symbol");
             symbol.transform.position = new(
                 cell.transform.position.x,
                 cell.transform.position.y
             );
-            symbol.transform.SetParent(storage.Components.SymbolContainer);
+            symbol.transform.SetParent(_storage.Components.SymbolContainer);
             SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
             symbolBase.SetSymbolData(symbolData);
             symbolBase.SetPosition(cell.Position.X, cell.Position.Y);
@@ -93,11 +90,11 @@ public class ContractInitField
 
     private T[,] ListToArray<T>(List<T> list)
     {
-        T[,] array = new T[storage.FieldData.SizeX, storage.FieldData.SizeY];
+        T[,] array = new T[_storage.FieldData.SizeX, _storage.FieldData.SizeY];
         int index = 0;
-        for (int y = 0; y < storage.FieldData.SizeY; y++)
+        for (int y = 0; y < _storage.FieldData.SizeY; y++)
         {
-            for (int x = 0; x < storage.FieldData.SizeX; x++)
+            for (int x = 0; x < _storage.FieldData.SizeX; x++)
             {
                 array[x, y] = list[index];
                 index++;

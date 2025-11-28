@@ -7,14 +7,11 @@ public class ContractCheckData
 {
     private static ContractCheckData _instance;
     private ContractCheckData() { }
-    private BattleStorage storage;
+    private BattleStorage _storage;
 
     public static ContractCheckData GetInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new();
-        }
+        _instance ??= new();
         return _instance;
     }
 
@@ -22,7 +19,7 @@ public class ContractCheckData
     {
         Debug.Log("Contract \"Check Data\": start Implement");
         // Инициализация данных
-        storage = BattleStorage.GetInstance();
+        _storage = BattleStorage.GetInstance();
 
         SymbolWeightCheck();
 
@@ -33,7 +30,7 @@ public class ContractCheckData
     private void SymbolWeightCheck()
     {
         float weight = 0f;
-        foreach (FieldSymbol symbol in storage.FieldData.Symbols)
+        foreach (FieldSymbol symbol in _storage.FieldData.Symbols)
         {
             weight += symbol.Weight;
         }

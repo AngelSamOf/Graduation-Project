@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ContractCheckField
@@ -6,6 +9,7 @@ public class ContractCheckField
     private static ContractCheckField _instance;
     private ContractCheckField() { }
     private BattleStorage _storage;
+    private List<WinCombination> _winList;
 
     public static ContractCheckField GetInstance()
     {
@@ -18,6 +22,7 @@ public class ContractCheckField
         Debug.Log("Contract \"Check Field\": start Implement");
         // Инициализация данных
         _storage = BattleStorage.GetInstance();
+        _winList = new();
 
         // Начало просчёта (горизонтальных)
         for (int x = 0; x < _storage.FieldData.SizeX; x++)
@@ -29,6 +34,8 @@ public class ContractCheckField
         {
             CheckCell(0, y, null, Direction.horizontal);
         }
+        // Просчёт победных комбинаций (выставление типа)
+        CalculateWin();
         // Вывод всех победных комбинаций
         PrintWinCombination();
         Debug.Log("Contract \"Check Field\": end Implement");
@@ -65,7 +72,7 @@ public class ContractCheckField
             WinCombination newCombination = new(
                 symbolID,
                 new() { new(x, y) },
-                WinType.Win
+                WinType.NotSelected
             );
             NextSymbol(x, y, newCombination, direction);
             return;
@@ -83,7 +90,7 @@ public class ContractCheckField
             WinCombination newCombination = new(
                 symbolID,
                 new() { new(x, y) },
-                WinType.Win
+                WinType.NotSelected
             );
             NextSymbol(x, y, newCombination, direction);
         }
@@ -112,7 +119,54 @@ public class ContractCheckField
         {
             return;
         }
-        _storage.AddWin(combination);
+
+        _winList.Add(combination);
+    }
+
+    private void CalculateWin()
+    {
+        for (int i = 0; i < _winList.Count; i++)
+        {
+            WinCombination currentWin = _winList[i];
+            // Пропуск если победный тип уже выставлен
+            if (currentWin.WinType != WinType.NotSelected)
+            {
+                continue;
+            }
+
+            // Поиск пересечения
+            for (int j = i + 1; j < _winList.Count; j++)
+            {
+                if (WinHasIntersection(currentWin, _winList[j]))
+                {
+                    currentWin.SetWinType(WinType.WinCrossroad);
+                    _winList[j].SetWinType(WinType.Destroy);
+                }
+            }
+
+            // Выставление другого WinType
+            if (currentWin.WinType == WinType.NotSelected)
+            {
+                switch (currentWin.Positions.Count)
+                {
+                    case 3:
+                        currentWin.SetWinType(WinType.WinTriple);
+                        break;
+                    case 4:
+                        currentWin.SetWinType(WinType.WinQuadruple);
+                        break;
+                    default:
+                        currentWin.SetWinType(WinType.WinTheFifth);
+                        break;
+                }
+            }
+
+            // Сохранение победной комбинации в хранилище
+            if (currentWin.WinType != WinType.Destroy)
+            {
+                _storage.AddWin(currentWin);
+            }
+        }
     }
 
     private void PrintWinCombination()
@@ -125,5 +179,11 @@ public class ContractCheckField
                 str.Append($"{symbol.X}:{symbol.Y},");
             }
         }
+    }
+
+    private bool WinHasIntersection(WinCombination a, WinCombination b)
+    {
+        return a.Positions.Any(posA =>
+            b.Positions.Any(posB => posA.X == posB.X && posA.Y == posB.Y));
     }
 }

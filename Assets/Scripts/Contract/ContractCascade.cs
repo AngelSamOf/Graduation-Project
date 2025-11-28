@@ -67,10 +67,11 @@ public class ContractCascade
         foreach (WinCombination win in _storage.Wins)
         {
             // Игнорируем не победные комбинации
-            if (win.WinType != WinType.Win)
+            if (win.WinType == WinType.NotSelected)
             {
                 continue;
             }
+            Debug.Log($"win \"{win.ID}\" by type ({win.WinType})");
 
             foreach (CellPosition position in win.Positions)
             {

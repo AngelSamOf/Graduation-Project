@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 [Serializable]
 public class DefaultComponents
@@ -30,6 +31,12 @@ public class WinCombination
         _id = id;
         _positions = positions;
         _winType = winType;
+    }
+
+    public void SetWinType(WinType type)
+    {
+        if (_winType != WinType.NotSelected) return;
+        _winType = type;
     }
 }
 
@@ -81,6 +88,10 @@ public enum Direction
 
 public enum WinType
 {
-    Win = 0,
-    Destroy = 1
+    NotSelected = 0,
+    Destroy = 1,
+    WinTriple = 2,
+    WinQuadruple = 3,
+    WinTheFifth = 4,
+    WinCrossroad = 5,
 }

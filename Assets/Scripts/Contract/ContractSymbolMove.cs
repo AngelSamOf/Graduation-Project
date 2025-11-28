@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ContractSymbolMove
@@ -17,7 +18,7 @@ public class ContractSymbolMove
         return _instance;
     }
 
-    public void Implement(
+    public async Task Implement(
         Direction direction,
         SymbolBase symbol
     )
@@ -25,6 +26,7 @@ public class ContractSymbolMove
         Debug.Log("Contract \"SymbolMove\": start Implement");
         // Инициализация данных
         storage = BattleStorage.GetInstance();
+        List<Task> tasks = new();
 
         // Получение текущего символа на поле
         SymbolBase currentSymbol = storage.SymbolMap[symbol.Position.X, symbol.Position.Y];
@@ -40,10 +42,12 @@ public class ContractSymbolMove
             targetPosition.Y >= storage.FieldData.SizeY
         )
         {
-            currentSymbol.MoveSymbolAndReturn(
+            tasks.Add(currentSymbol.MoveSymbolAndReturn(
                 storage.Constants.ShiftTime,
                 currentCell.transform.localPosition + GetOutDirection(direction)
-            );
+            ));
+
+            await Task.WhenAll(tasks);
             return;
         }
 
@@ -55,15 +59,16 @@ public class ContractSymbolMove
         SymbolMethods.SwapPosition(storage, currentSymbol, targetSymbol);
 
         // Запуск анимаций смены
-        currentSymbol.MoveSymbol(
+        tasks.Add(currentSymbol.MoveSymbol(
             storage.Constants.MoveTime,
             targetCell.transform.localPosition
-        );
-        targetSymbol.MoveSymbol(
+        ));
+        tasks.Add(targetSymbol.MoveSymbol(
             storage.Constants.MoveTime,
             currentCell.transform.localPosition
-        );
+        ));
 
+        await Task.WhenAll(tasks);
         Debug.Log("Contract \"SymbolMove\": end Implement");
     }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ContractCascade
@@ -17,7 +18,7 @@ public class ContractCascade
         return _instance;
     }
 
-    public void Implement()
+    public async Task Implement()
     {
         Debug.Log("Contract \"Cascade\": start Implement");
         // Инициализация данных
@@ -31,15 +32,19 @@ public class ContractCascade
 
         // Уничтожение победивших символов
         List<CellPosition>[] posStack = DestroySymbol();
+        List<Task> tasks = new();
         foreach (List<CellPosition> positions in posStack)
         {
-            CascadeSymbol(positions);
+            tasks.Add(CascadeSymbol(positions));
         }
+        await Task.WhenAll(tasks);
+        tasks = new();
         // Выпадение новых символов
         for (int x = 0; x < storage.FieldData.SizeX; x++)
         {
-            DropNewSymbol(x);
+            tasks.Add(DropNewSymbol(x));
         }
+        await Task.WhenAll(tasks);
 
         Debug.Log("Contract \"Cascade\": end Implement");
     }
@@ -81,7 +86,7 @@ public class ContractCascade
         return posStack;
     }
 
-    private void CascadeSymbol(List<CellPosition> positions)
+    private async Task CascadeSymbol(List<CellPosition> positions)
     {
         // Проверка что победные символы есть в столбце
         if (positions.Count == 0)
@@ -89,6 +94,7 @@ public class ContractCascade
             return;
         }
 
+        List<Task> tasks = new();
         // Смещение всех выше стоящих символов на позицию вниз
         int x = positions.First().X;
         int startY = positions.First().Y;
@@ -109,24 +115,28 @@ public class ContractCascade
                 SymbolMethods.SwapPosition(storage, symbol, targetSymbol);
 
                 // Запуск анимаций перемещения
-                targetSymbol.MoveSymbol(
+                tasks.Add(targetSymbol.MoveSymbol(
                     storage.Constants.MoveTime,
                     symbol.transform.localPosition
-                );
-                symbol.MoveSymbol(
+                ));
+                tasks.Add(symbol.MoveSymbol(
                     storage.Constants.MoveTime,
                     storage.FieldMap[x, startY].transform.localPosition
-                );
+                ));
 
                 startY -= 1;
                 break;
             }
         }
+
+        await Task.WhenAll(tasks);
     }
 
-    private void DropNewSymbol(int columnIndex)
+    private async Task DropNewSymbol(int columnIndex)
     {
         int symbolIndex = 0;
+        List<Task> tasks = new();
+
         for (int y = storage.FieldData.SizeY - 1; y >= 0; y--)
         {
             SymbolBase symbol = storage.SymbolMap[columnIndex, y];
@@ -150,9 +160,14 @@ public class ContractCascade
             symbol.UpdateTexture();
 
             // Запуск анимации падения
-            symbol.MoveSymbol(storage.Constants.MoveTime, cellPosition);
+            tasks.Add(symbol.MoveSymbol(
+                storage.Constants.MoveTime,
+                cellPosition
+            ));
 
             symbolIndex += 1;
         }
+
+        await Task.WhenAll(tasks);
     }
 }

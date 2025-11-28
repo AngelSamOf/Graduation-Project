@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public delegate void TimeActionFinish();
@@ -39,6 +40,14 @@ public class MoveAction : TimeAction
 {
     protected Vector3 _startPoint;
     protected Vector3 _startEnd;
+    private TaskCompletionSource<bool> _task;
+
+    public Task MoveWithTimeAsyn(float time, Vector3 targetPosition)
+    {
+        _task = new TaskCompletionSource<bool>();
+        MoveWithTime(time, targetPosition, () => _task.TrySetResult(true));
+        return _task.Task;
+    }
 
     public void MoveWithTime(
         float time,
@@ -52,23 +61,6 @@ public class MoveAction : TimeAction
         _startPoint = gameObject.transform.localPosition;
         _startEnd = targetPosition;
         base.Delay(time, action);
-    }
-
-    public void MoveWithSpeed(
-        float speed,
-        Vector3 targetPosition,
-        TimeActionFinish action = null
-    )
-    {
-        float time = Vector3.Distance(
-            gameObject.transform.localPosition,
-            targetPosition
-        ) / speed;
-        MoveWithTime(
-            time,
-            targetPosition,
-            action
-        );
     }
 
     protected override void UpdateWay(float way)

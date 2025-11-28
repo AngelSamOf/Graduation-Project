@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EntryGate : MonoBehaviour
@@ -6,7 +7,7 @@ public class EntryGate : MonoBehaviour
     [SerializeField] protected FieldObject _field;
     protected BattleStorage _storage;
 
-    void Start()
+    async void Start()
     {
         // Инициализация
         // Инициализация хранилища
@@ -20,23 +21,32 @@ public class EntryGate : MonoBehaviour
         // Инициализация поля
         ContractInitField.GetInstance().Implement();
         // Проверка сгенерированного поля на победные комбинации
-        ContractCheckField.GetInstance().Implement();
-        // Удаление победных комбинаций
-        ContractCascade.GetInstance().Implement();
+        await CheckWinsCircle();
 
         // Подписки на события
         // Подписка на перемещение символа на поле
         EventEmitter.MoveSymbol += SymbolMove;
     }
 
-    private void SymbolMove(Direction direction, SymbolBase symbol)
+    private async void SymbolMove(Direction direction, SymbolBase symbol)
     {
         // Перемещение символа
-        ContractSymbolMove.GetInstance().Implement(direction, symbol);
-        // Проверка на победные комбинации
-        ContractCheckField.GetInstance().Implement();
-        // Удаление всех победных комбинаций
-        ContractCascade.GetInstance().Implement();
-        _storage.ClearWins();
+        await ContractSymbolMove.GetInstance().Implement(direction, symbol);
+        await CheckWinsCircle();
+    }
+
+    private async Task CheckWinsCircle()
+    {
+        do
+        {
+            // Проверка на победные комбинации
+            ContractCheckField.GetInstance().Implement();
+            if (_storage.Wins.Count == 0)
+                break;
+
+            // Удаление всех победных комбинаций
+            await ContractCascade.GetInstance().Implement();
+            _storage.ClearWins();
+        } while (true);
     }
 }

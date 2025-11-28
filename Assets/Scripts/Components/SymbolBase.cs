@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -88,13 +89,6 @@ public class SymbolBase :
         _isMove = false;
     }
 
-    public void MoveSymbol(float time, Vector3 position)
-    {
-        _isMove = true;
-        this.AddComponent<MoveAction>()
-            .MoveWithTime(time, position);
-    }
-
     public void DestroySymbol()
     {
         _symbolData = null;
@@ -109,20 +103,31 @@ public class SymbolBase :
             _symbolData.Texture;
     }
 
-    public void MoveSymbolAndReturn(
+    public Task MoveSymbol(float time, Vector3 position)
+    {
+        _isMove = true;
+        MoveAction action = this.AddComponent<MoveAction>();
+        return action.MoveWithTimeAsyn(time, position);
+    }
+
+    public async Task MoveSymbolAndReturn(
         float time,
         Vector3 positionTarget
     )
     {
+        _isMove = true;
+
         Vector3 startPosition = transform.localPosition;
 
-        this.AddComponent<MoveAction>()
-            .MoveWithTime(time, positionTarget, () =>
-            {
-                this.AddComponent<MoveAction>()
-                .MoveWithTime(time, startPosition);
-            }
-        );
+        // Перемещение вперёд
+        MoveAction actionForward = this.AddComponent<MoveAction>();
+        await actionForward.MoveWithTimeAsyn(time, positionTarget);
+
+        // Перемещение обратно
+        MoveAction actionBackward = this.AddComponent<MoveAction>();
+        await actionBackward.MoveWithTimeAsyn(time, startPosition);
+
+        _isMove = false;
     }
 
     private Direction CheckDirection(Vector3 startPos, Vector3 endPos)

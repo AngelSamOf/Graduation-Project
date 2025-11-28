@@ -15,9 +15,9 @@ public class BattleStorage
 
     public readonly Constants Constants = new();
 
-    public DefaulComponents Components => _components;
-    private DefaulComponents _components;
-    public void SetComponents(DefaulComponents data)
+    public DefaultComponents Components => _components;
+    private DefaultComponents _components;
+    public void SetComponents(DefaultComponents data)
     {
         _components = data;
     }

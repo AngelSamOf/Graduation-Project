@@ -47,8 +47,8 @@ public class ContractInitField
                 Component cell = Object.Instantiate(
                     storage.FieldData.Cell,
                     new Vector3(
-                        x * storage.FieldData.SteapX,
-                        y * storage.FieldData.SteapY * -1
+                        x * storage.FieldData.StepX,
+                        y * storage.FieldData.StepY * -1
                     ),
                     Quaternion.identity
                 );

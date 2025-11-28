@@ -64,7 +64,7 @@ public class ContractCascade
             {
                 // Уничтожение символа и сохранение его позиции
                 SymbolBase symbol = storage.SymbolMap[position.X, position.Y];
-                if (symbol.SymbolData)
+                if (symbol.SymbolData != null)
                 {
                     symbol.DestroySymbol();
                     posStack[position.X].Add(position);
@@ -138,7 +138,7 @@ public class ContractCascade
             Vector3 cellPosition = storage.FieldMap[columnIndex, y].transform.localPosition;
 
             float posX = storage.Constants.DropStartPosY
-                + symbolIndex * storage.FieldData.SteapY;
+                + symbolIndex * storage.FieldData.StepY;
 
             symbol.transform.localPosition = new Vector3(
                 symbol.transform.localPosition.x,

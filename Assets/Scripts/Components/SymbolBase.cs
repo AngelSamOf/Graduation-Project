@@ -18,13 +18,16 @@ public class SymbolBase :
 
     protected bool _isMove = false;
     protected Vector3 _startPos;
-    protected SpriteRenderer _spriteRendere;
+    protected SpriteRenderer _spriteRenderer;
     protected BoxCollider2D _collider;
+
+    // Погрешность в пикселях при нажатии
+    private const float _clickThreshold = 25f;
 
     public void Init()
     {
         // Получение компонентов с объекта
-        _spriteRendere = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
 
         // Инициализация компонента
@@ -66,16 +69,18 @@ public class SymbolBase :
             return;
         }
 
+        Vector2 end = eventData.position;
+        float sqrDistance = (end - (Vector2)_startPos).sqrMagnitude;
+
+        _isMove = false;
         // Проверка на клик
-        if (_startPos == new Vector3(eventData.position.x, eventData.position.y))
+        if (sqrDistance <= _clickThreshold)
         {
             return;
         }
 
         Direction direction = CheckDirection(_startPos, eventData.position);
-        _isMove = false;
-        // Вызов события на обновление позиции
-        EventEmitter.MoveSymbol(direction, this);
+        EventEmitter.MoveSymbol?.Invoke(direction, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -99,7 +104,7 @@ public class SymbolBase :
 
     public void UpdateTexture()
     {
-        _spriteRendere.sprite = _symbolData == null ?
+        _spriteRenderer.sprite = _symbolData == null ?
             null :
             _symbolData.Texture;
     }
@@ -125,17 +130,17 @@ public class SymbolBase :
         float differenceX = endPos.x - startPos.x;
         float differenceY = endPos.y - startPos.y;
 
-        if (Math.Abs(differenceX) > Math.Abs(differenceY))
+        if (Mathf.Abs(differenceX) > Mathf.Abs(differenceY))
         {
-            return differenceX > 0 ?
-                Direction.horizontalRight :
-                Direction.horizontalLeft;
+            return differenceX > 0
+                ? Direction.horizontalRight
+                : Direction.horizontalLeft;
         }
         else
         {
-            return differenceY > 0 ?
-                Direction.vertivalTop :
-                Direction.verticalBottom;
+            return differenceY > 0
+                ? Direction.verticalTop
+                : Direction.verticalBottom;
         }
     }
 }

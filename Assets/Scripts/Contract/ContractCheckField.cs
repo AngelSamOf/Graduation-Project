@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -57,6 +55,12 @@ public class ContractCheckField
         }
 
         SymbolBase symbol = storage.SymbolMap[x, y];
+        // Проверка на пустоту
+        if (symbol == null || symbol.SymbolData == null)
+        {
+            SaveCombination(combination);
+            return;
+        }
         string symbolID = symbol.SymbolData.ID;
         // Старт новой комбинации
         if (combination == null)

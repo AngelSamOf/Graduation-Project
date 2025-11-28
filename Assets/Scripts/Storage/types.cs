@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 [Serializable]
-public class DefaulComponents
+public class DefaultComponents
 {
     public Transform FieldContainer => _fieldContainer;
     [SerializeField] protected Transform _fieldContainer;
@@ -75,6 +75,12 @@ public enum Direction
     horizontalLeft = 2,
     horizontalRight = 3,
     vertical = 4,
-    vertivalTop = 5,
+    verticalTop = 5,
     verticalBottom = 6
+}
+
+public enum WinType
+{
+    Win = 0,
+    Destroy = 1
 }

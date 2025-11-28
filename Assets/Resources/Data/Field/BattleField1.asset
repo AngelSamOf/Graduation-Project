@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sizeX: 8
   _sizeY: 8
-  _steapX: 1.1
-  _steapY: 1.1
+  _stepX: 1.1
+  _stepY: 1.1
   _symbols:
   - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}

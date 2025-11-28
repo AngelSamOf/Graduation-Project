@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,12 +78,12 @@ public class ContractSymbolMove
                 return new(position.X + 1, position.Y);
             case Direction.horizontalLeft:
                 return new(position.X - 1, position.Y);
-            case Direction.vertivalTop:
+            case Direction.verticalTop:
                 return new(position.X, position.Y - 1);
             case Direction.verticalBottom:
                 return new(position.X, position.Y + 1);
             default:
-                return null;
+                throw new Exception("The direction is not defined");
         }
     }
 
@@ -96,7 +97,7 @@ public class ContractSymbolMove
                 return new(storage.Constants.ShiftMove, 0);
             case Direction.horizontalLeft:
                 return new(-storage.Constants.ShiftMove, 0);
-            case Direction.vertivalTop:
+            case Direction.verticalTop:
                 return new(0, storage.Constants.ShiftMove);
             case Direction.verticalBottom:
                 return new(0, -storage.Constants.ShiftMove);

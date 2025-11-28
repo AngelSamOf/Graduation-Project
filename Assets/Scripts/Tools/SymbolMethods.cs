@@ -10,6 +10,7 @@ static class SymbolMethods
         SymbolBase secondSymbol
     )
     {
+        // Смена позиций в общем массиве
         (
             storage.SymbolMap[firstSymbol.Position.X, firstSymbol.Position.Y],
             storage.SymbolMap[secondSymbol.Position.X, secondSymbol.Position.Y]
@@ -18,6 +19,8 @@ static class SymbolMethods
             storage.SymbolMap[secondSymbol.Position.X, secondSymbol.Position.Y],
             storage.SymbolMap[firstSymbol.Position.X, firstSymbol.Position.Y]
         );
+
+        // Смена позиций у символов
         secondSymbol.SetPosition(firstSymbol.Position);
         firstSymbol.SetPosition(secondSymbol.Position);
     }

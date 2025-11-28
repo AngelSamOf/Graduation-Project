@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EntryGate : MonoBehaviour
 {
-    [SerializeField] protected DefaulComponents _components;
+    [SerializeField] protected DefaultComponents _components;
     [SerializeField] protected FieldObject _field;
     protected BattleStorage _storage;
 
@@ -13,6 +13,10 @@ public class EntryGate : MonoBehaviour
         _storage = BattleStorage.GetInstance();
         _storage.SetComponents(_components);
         _storage.SetFieldData(_field);
+
+        // Проверка данных на валидность
+        ContractCheckData.GetInstance().Implement();
+
         // Инициализация поля
         ContractInitField.GetInstance().Implement();
         // Проверка сгенерированного поля на победные комбинации
@@ -22,7 +26,7 @@ public class EntryGate : MonoBehaviour
 
         // Подписки на события
         // Подписка на перемещение символа на поле
-        EventEmitter.MoveSymbol = SymbolMove;
+        EventEmitter.MoveSymbol += SymbolMove;
     }
 
     private void SymbolMove(Direction direction, SymbolBase symbol)

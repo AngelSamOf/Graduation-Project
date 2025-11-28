@@ -19,10 +19,10 @@ public class FieldObject : ScriptableObject
     [SerializeField] private int _sizeX = 10;
     public int SizeY => _sizeY;
     [SerializeField] private int _sizeY = 10;
-    public float SteapX => _steapX;
-    [SerializeField] private float _steapX = 0;
-    public float SteapY => _steapY;
-    [SerializeField] private float _steapY = 0;
+    public float StepX => _stepX;
+    [SerializeField] private float _stepX = 0;
+    public float StepY => _stepY;
+    [SerializeField] private float _stepY = 0;
     public List<FieldSymbol> Symbols => _symbols;
     [SerializeField] private List<FieldSymbol> _symbols = new();
     public Component Cell => _cell;

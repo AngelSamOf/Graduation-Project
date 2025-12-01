@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ContractCheckData
@@ -21,8 +19,9 @@ public class ContractCheckData
         // Инициализация данных
         _storage = BattleStorage.GetInstance();
 
+        // Запуск проверок данных
         SymbolWeightCheck();
-
+        WinConditionCheck();
 
         Debug.Log("Contract \"Check Data\": end Implement");
     }
@@ -38,6 +37,66 @@ public class ContractCheckData
         if (weight != 1)
         {
             throw new Exception("Symbol total weight is not equal to zero");
+        }
+    }
+
+    private void WinConditionCheck()
+    {
+        FieldObject data = _storage.FieldData;
+
+        // Проверка что установлены победные условия
+        if (
+            !data.IsStepWin
+            && !data.IsSymbolWin
+            && !data.IsCombinationWin
+        )
+        {
+            throw new Exception("There are no winning conditions set for the level");
+        }
+
+        // Проверка что количетсво ходов больше 0
+        if (data.IsStepWin && data.StepLimit <= 0)
+        {
+            throw new Exception("The number of moves must be greater than 0");
+        }
+
+        // Проверка символов
+        if (data.IsSymbolWin)
+        {
+            if (data.SymbolConditions.Count <= 0)
+            {
+                throw new Exception("No character set conditions have been added");
+            }
+            foreach (SymbolCondition condition in data.SymbolConditions)
+            {
+                if (condition.Count <= 0)
+                {
+                    throw new Exception($"The number that must be scored to win is not specified for the {condition.SymbolID} symbol");
+                }
+            }
+        }
+
+        // Проверка победных комбинаций
+        if (data.IsCombinationWin)
+        {
+            if (data.CombinationConditions.Count <= 0)
+            {
+                throw new Exception("Not a single set of winning combinations is specified");
+            }
+            foreach (CombinationCondition condition in data.CombinationConditions)
+            {
+                if (
+                    condition.CombinationType == WinType.NotSelected
+                    || condition.CombinationType == WinType.Destroy
+                )
+                {
+                    throw new Exception("Invalid winning combination type is specified");
+                }
+                if (condition.Count <= 0)
+                {
+                    throw new Exception("No number is specified for the winning combination");
+                }
+            }
         }
     }
 }

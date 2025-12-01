@@ -81,6 +81,8 @@ public class ContractSymbolMove
         await Task.WhenAll(tasks);
         Debug.Log("Contract \"Symbol Move\": end Implement");
         _isImplement = false;
+        // Вызов события на окончания передвижения
+        EventEmitter.EndMoveSymbol.Invoke();
     }
 
     private CellPosition GetTargetPosition(

@@ -40,19 +40,14 @@ public class ContractInitField
         {
             for (int x = 0; x < _storage.FieldData.SizeX; x++)
             {
-
-                Component cell = Object.Instantiate(
-                    _storage.FieldData.Cell,
-                    new Vector3(
-                        x * _storage.FieldData.StepX,
-                        y * _storage.FieldData.StepY * -1
-                    ),
-                    Quaternion.identity
+                GameObject cell = new($"{x}-{y}");
+                cell.transform.position = new(
+                    x * _storage.FieldData.StepX,
+                    y * _storage.FieldData.StepY * -1
                 );
                 cell.transform.SetParent(_storage.Components.FieldContainer);
                 CellBase cellBase = cell.AddComponent<CellBase>();
-                cellBase.Init(new(x, y));
-                cell.name = $"{x}-{y}";
+                cellBase.Init(new(x, y), _storage.FieldData.CellTexture);
                 cellList.Add(cellBase);
             }
         }

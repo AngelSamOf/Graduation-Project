@@ -33,4 +33,14 @@ MonoBehaviour:
     _symbol: {fileID: 11400000, guid: 0089082dd87e66a4ca89bfadc2c604da, type: 2}
   - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 589b9bb539385ad4896671d63192da29, type: 2}
-  _cell: {fileID: 1065438816524251268, guid: b38b9c8a4de68394787e1c8253f5f7db, type: 3}
+  _cellTexture: {fileID: 21300000, guid: 7b3ca8c51a5160a42ad8868ecbbc2a7a, type: 3}
+  _isStepWin: 1
+  _stepLimit: 10
+  _isSymbolWin: 0
+  _symbolConditions:
+  - _count: 10
+    _symbolID: s1
+  _isCombinatiobWin: 1
+  _combinationConditions:
+  - _count: 2
+    _combinationType: 2

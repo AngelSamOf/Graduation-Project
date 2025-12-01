@@ -53,5 +53,52 @@ public class BattleStorage
     {
         _wins.Clear();
     }
+
+    public int StepCount => _stepCount;
+    private int _stepCount;
+    public void ResetStepCount()
+    {
+        _stepCount = 0;
+    }
+    public void IncreaseStep()
+    {
+        _stepCount += 1;
+    }
+
+    public Dictionary<string, int> SymbolCount => _symbolCount;
+    private Dictionary<string, int> _symbolCount = new();
+    public void AddSymbolCounter(string id)
+    {
+        _symbolCount.Add(id, 0);
+    }
+    public void IncreaseSymbolCounter(string id)
+    {
+        _symbolCount[id] += 1;
+    }
+
+    public Dictionary<WinType, int> CombinationCount => _combinationCount;
+    private Dictionary<WinType, int> _combinationCount = new();
+    public void AddWinCounter(WinType type)
+    {
+        _combinationCount.Add(type, 0);
+    }
+    public void IncreaseWinCounter(WinType type)
+    {
+        _combinationCount[type] += 1;
+    }
+
+    public int FulfilledVictoryConditions => _fulfilledVictoryConditions;
+    private int _fulfilledVictoryConditions = 0;
+    public int VictoryConditions => _victoryConditions;
+    private int _victoryConditions = 0;
+    public void SetVictoryCondition(int count)
+    {
+        _victoryConditions = count;
+        _fulfilledVictoryConditions = 0;
+    }
+    public void IncreaseVictoryCondition()
+    {
+        _fulfilledVictoryConditions += 1;
+    }
 }
 

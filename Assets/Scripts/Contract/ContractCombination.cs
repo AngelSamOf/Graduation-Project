@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ContractCascade
+public class ContractCombination
 {
-    private static ContractCascade _instance;
-    private ContractCascade() { }
+    private static ContractCombination _instance;
+    private ContractCombination() { }
     private BattleStorage _storage;
     private bool _isImplement = false;
 
-    public static ContractCascade GetInstance()
+    public static ContractCombination GetInstance()
     {
         _instance ??= new();
         return _instance;
@@ -83,6 +83,8 @@ public class ContractCascade
                     posStack[position.X].Add(position);
                 }
             }
+            // Генерация события на уничтожения
+            EventEmitter.WinCombination.Invoke(win);
         }
 
         for (int i = 0; i < posStack.Length; i++)
@@ -91,6 +93,7 @@ public class ContractCascade
                 (first, second) => second.Y.CompareTo(first.Y)
             );
         }
+
         return posStack;
     }
 

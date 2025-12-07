@@ -22,4 +22,7 @@ public class CharacterObject : ScriptableObject
 
     public List<BaseSpell> Spells => _spells;
     [SerializeField] private List<BaseSpell> _spells;
+
+    public BaseSpell PassiveSpell => _passiveSpell;
+    [SerializeField] private BaseSpell _passiveSpell;
 }

@@ -53,6 +53,10 @@ public class BattleStorage
     {
         _stepCount = 0;
     }
+    public void RemoveStep(int count)
+    {
+        _stepCount -= count;
+    }
     public void IncreaseStep()
     {
         _stepCount += 1;

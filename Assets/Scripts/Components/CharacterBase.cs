@@ -40,6 +40,7 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
 
         // Подписка на события
         EventEmitter.WinCombination += UpdateEnergy;
+        EventEmitter.WinCombination += CheckPassive;
     }
 
     public void RemoveEnergy(int count)
@@ -78,6 +79,20 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         EventEmitter.ClickCharacter.Invoke(this);
+    }
+
+    public void CheckPassive(WinCombination win)
+    {
+        // Проверка условий
+        if (
+            win.WinType != WinType.WinCrossroad ||
+            win.ID != _data.Symbol.ID
+        )
+        {
+            return;
+        }
+
+        _data.PassiveSpell.Implement();
     }
 
     private void InitSubComponents()

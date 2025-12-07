@@ -20,7 +20,8 @@ public class ContractInitField
         _storage = BattleStorage.GetInstance();
 
         // Добавление на поле основных контейнеров
-        (GameObject symbolContainer, GameObject cellContainer) = GenerateBaseContainer();
+        (GameObject symbolContainer, GameObject cellContainer) = GenerateFieldContainer();
+        GameObject characterContainer = GenerateCharacterContainer();
 
         // Получение данных
         List<CellBase> cellList = GenerateField(cellContainer);
@@ -34,7 +35,8 @@ public class ContractInitField
         Debug.Log("Contract \"Init Field\": end Implement");
     }
 
-    private (GameObject symbolContainer, GameObject cellContainer) GenerateBaseContainer()
+    // Создание контейнеров
+    private (GameObject symbolContainer, GameObject cellContainer) GenerateFieldContainer()
     {
         GameObject cellContainer = new("cell-container");
         GameObject symbolContainer = new("symbol-container");
@@ -51,6 +53,13 @@ public class ContractInitField
         return (symbolContainer, cellContainer);
     }
 
+    private GameObject GenerateCharacterContainer()
+    {
+
+    }
+
+
+    // Создание клеток и симболов
     private List<CellBase> GenerateField(GameObject cellContainer)
     {
         List<CellBase> cellList = new();
@@ -94,6 +103,7 @@ public class ContractInitField
         return symbolList;
     }
 
+    // Вспомогательный класс
     private T[,] ListToArray<T>(List<T> list)
     {
         T[,] array = new T[_storage.FieldData.SizeX, _storage.FieldData.SizeY];

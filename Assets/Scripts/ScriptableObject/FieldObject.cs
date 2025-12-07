@@ -23,6 +23,10 @@ public class FieldObject : ScriptableObject
     public Sprite CellTexture => _cellTexture;
     [SerializeField] private Sprite _cellTexture = null;
 
+    // Персонажи
+    public List<CharacterObject> PlayerCharacter => _playerCharacter;
+    [SerializeField] private List<CharacterObject> _playerCharacter;
+
     // Условия победы
     // Победа по количеству ходов
     public bool IsStepWin => _isStepWin;

@@ -46,8 +46,8 @@ public class ContractSymbolMove
         if (
             targetPosition.X < 0 ||
             targetPosition.Y < 0 ||
-            targetPosition.X >= _storage.FieldData.SizeX ||
-            targetPosition.Y >= _storage.FieldData.SizeY
+            targetPosition.X >= _storage.FieldData.Field.SizeX ||
+            targetPosition.Y >= _storage.FieldData.Field.SizeY
         )
         {
             tasks.Add(currentSymbol.MoveSymbolAndReturn(

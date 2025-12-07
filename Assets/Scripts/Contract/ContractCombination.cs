@@ -46,7 +46,7 @@ public class ContractCombination
         await Task.WhenAll(tasks);
         tasks = new();
         // Выпадение новых символов
-        for (int x = 0; x < _storage.FieldData.SizeX; x++)
+        for (int x = 0; x < _storage.FieldData.Field.SizeX; x++)
         {
             tasks.Add(DropNewSymbol(x));
         }
@@ -58,7 +58,9 @@ public class ContractCombination
 
     private List<CellPosition>[] DestroySymbol()
     {
-        List<CellPosition>[] posStack = new List<CellPosition>[_storage.FieldData.SizeX];
+        List<CellPosition>[] posStack = new List<CellPosition>[
+            _storage.FieldData.Field.SizeX
+        ];
         for (int i = 0; i < posStack.Length; i++)
         {
             posStack[i] = new();
@@ -148,7 +150,7 @@ public class ContractCombination
         int symbolIndex = 0;
         List<Task> tasks = new();
 
-        for (int y = _storage.FieldData.SizeY - 1; y >= 0; y--)
+        for (int y = _storage.FieldData.Field.SizeY - 1; y >= 0; y--)
         {
             SymbolBase symbol = _storage.SymbolMap[columnIndex, y];
             if (symbol.SymbolData)
@@ -159,7 +161,7 @@ public class ContractCombination
             Vector3 cellPosition = _storage.FieldMap[columnIndex, y].transform.localPosition;
 
             float posX = _storage.Constants.DropStartPosY
-                + symbolIndex * _storage.FieldData.StepY;
+                + symbolIndex * _storage.FieldData.Field.StepY;
 
             symbol.transform.localPosition = new Vector3(
                 symbol.transform.localPosition.x,

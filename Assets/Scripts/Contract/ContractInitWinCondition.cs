@@ -26,23 +26,24 @@ public class ContractInitWinCondition
 
         // Подсчёт победных условий
         int victoryConditions = 0;
-        if (_storage.FieldData.IsSymbolWin)
+        Wins wins = _storage.FieldData.Wins;
+        if (wins.IsSymbolWin)
         {
-            victoryConditions += _storage.FieldData.SymbolConditions.Count;
+            victoryConditions += wins.SymbolConditions.Count;
         }
-        if (_storage.FieldData.IsCombinationWin)
+        if (wins.IsCombinationWin)
         {
-            victoryConditions += _storage.FieldData.CombinationConditions.Count;
+            victoryConditions += wins.CombinationConditions.Count;
         }
 
         // Подписка на события если есть победные комбинации
         // И обнуление полей в хранилище
-        if (_storage.FieldData.IsStepWin)
+        if (wins.IsStepWin)
         {
             _storage.ResetStepCount();
             EventEmitter.EndMoveSymbol += CheckStep;
         }
-        if (_storage.FieldData.IsSymbolWin)
+        if (wins.IsSymbolWin)
         {
             foreach (FieldSymbol symbol in _storage.FieldData.Symbols)
             {
@@ -50,7 +51,7 @@ public class ContractInitWinCondition
             }
             EventEmitter.WinCombination += CheckSymbol;
         }
-        if (_storage.FieldData.IsCombinationWin)
+        if (wins.IsCombinationWin)
         {
             foreach (WinType type in Enum.GetValues(typeof(WinType)))
             {
@@ -69,8 +70,7 @@ public class ContractInitWinCondition
     private void CheckStep()
     {
         _storage.IncreaseStep();
-        Debug.Log($"Step: {_storage.StepCount}:{_storage.FieldData.StepLimit}");
-        if (_storage.StepCount >= _storage.FieldData.StepLimit)
+        if (_storage.StepCount >= _storage.FieldData.Wins.StepLimit)
         {
             _contractLoseGame.Implement();
         }
@@ -85,7 +85,7 @@ public class ContractInitWinCondition
             : data.Positions.Count;
 
         _storage.IncreaseSymbolCounter(data.ID, count);
-        SymbolCondition targetCondition = _storage.FieldData.SymbolConditions
+        SymbolCondition targetCondition = _storage.FieldData.Wins.SymbolConditions
             .Find(condition => condition.SymbolID == data.ID);
 
         // Сохраняем, если есть такое условие победы
@@ -104,7 +104,7 @@ public class ContractInitWinCondition
         }
 
         _storage.IncreaseWinCounter(data.WinType);
-        CombinationCondition targetCondition = _storage.FieldData.CombinationConditions
+        CombinationCondition targetCondition = _storage.FieldData.Wins.CombinationConditions
             .Find(condition => condition.CombinationType == data.WinType);
 
         // Сохраняем, если есть такая комбинация
@@ -116,19 +116,16 @@ public class ContractInitWinCondition
 
     private void CheckWin(Condition condition, int currentValue)
     {
-        Debug.Log($"{currentValue}:{condition.Count}");
-        if (condition.Count <= currentValue)
+        if (condition.Count > currentValue || condition.IsComplete)
         {
-            if (condition.IsComplete)
-            {
-                return;
-            }
-            condition.Complete();
-            _storage.IncreaseVictoryCondition();
-            if (_storage.VictoryConditions <= _storage.FulfilledVictoryConditions)
-            {
-                _contractWinGame.Implement();
-            }
+            return;
+        }
+
+        condition.Complete();
+        _storage.IncreaseVictoryCondition();
+        if (_storage.VictoryConditions <= _storage.FulfilledVictoryConditions)
+        {
+            _contractWinGame.Implement();
         }
     }
 }

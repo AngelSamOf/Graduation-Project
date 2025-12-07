@@ -23,14 +23,15 @@ public class ContractCheckField
         // Инициализация данных
         _storage = BattleStorage.GetInstance();
         _winList = new();
+        Field field = _storage.FieldData.Field;
 
         // Начало просчёта (горизонтальных)
-        for (int x = 0; x < _storage.FieldData.SizeX; x++)
+        for (int x = 0; x < field.SizeX; x++)
         {
             CheckCell(x, 0, null, Direction.vertical);
         }
         // Начало просчёта (вертикальных)
-        for (int y = 0; y < _storage.FieldData.SizeY; y++)
+        for (int y = 0; y < field.SizeY; y++)
         {
             CheckCell(0, y, null, Direction.horizontal);
         }
@@ -50,8 +51,8 @@ public class ContractCheckField
     {
         // Проверка что нет выхода за пределы поля
         if (
-            x >= _storage.FieldData.SizeX ||
-            y >= _storage.FieldData.SizeY
+            x >= _storage.FieldData.Field.SizeX ||
+            y >= _storage.FieldData.Field.SizeY
         )
         {
             SaveCombination(combination);

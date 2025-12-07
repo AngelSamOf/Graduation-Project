@@ -8,14 +8,14 @@ public class CellBase : MonoBehaviour
 
     protected SpriteRenderer _spriteRenderer;
 
-    public void Init(CellPosition position, Sprite sprite)
+    public void Init(CellPosition position, CellObject data)
     {
         _position = position;
         _spriteRenderer = this.GetComponent<SpriteRenderer>();
 
-        if (sprite != null)
+        if (data.Texture != null)
         {
-            _spriteRenderer.sprite = sprite;
+            _spriteRenderer.sprite = data.Texture;
         }
     }
 }

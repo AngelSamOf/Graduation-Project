@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acbfe4bcf850c74184fb88fed1d66b0, type: 3}
   m_Name: BattleField1
   m_EditorClassIdentifier: 
-  _sizeX: 8
-  _sizeY: 8
-  _stepX: 1.1
-  _stepY: 1.1
+  _field:
+    _sizeX: 6
+    _sizeY: 6
+    _stepX: 1.1
+    _stepY: 1.1
+  _cell: {fileID: 11400000, guid: 34640032ba29a88498c46714116cdfac, type: 2}
   _symbols:
   - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
@@ -33,14 +35,14 @@ MonoBehaviour:
     _symbol: {fileID: 11400000, guid: 0089082dd87e66a4ca89bfadc2c604da, type: 2}
   - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 589b9bb539385ad4896671d63192da29, type: 2}
-  _cellTexture: {fileID: 21300000, guid: 7b3ca8c51a5160a42ad8868ecbbc2a7a, type: 3}
-  _isStepWin: 1
-  _stepLimit: 10
-  _isSymbolWin: 1
-  _symbolConditions:
-  - _count: 10
-    _symbolID: s1
-  _isCombinatiobWin: 1
-  _combinationConditions:
-  - _count: 2
-    _combinationType: 2
+  _playerCharacter:
+  - {fileID: 11400000, guid: 2c56cc8d7751ba24dad69d92348ee3bf, type: 2}
+  _wins:
+    _isStepWin: 1
+    _stepLimit: 8
+    _isSymbolWin: 1
+    _symbolConditions:
+    - _count: 1
+      _symbolID: 5
+    _isCombinatiobWin: 0
+    _combinationConditions: []

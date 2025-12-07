@@ -41,13 +41,14 @@ public class ContractInitField
         GameObject cellContainer = new("cell-container");
         GameObject symbolContainer = new("symbol-container");
 
+        Field field = _storage.FieldData.Field;
         cellContainer.transform.position = new Vector3(
-            _storage.FieldData.SizeX / 2 * -1,
-            _storage.FieldData.SizeY / 2
+            field.SizeX / 2 * -1,
+            field.SizeY / 2
         );
         symbolContainer.transform.position = new Vector3(
-            _storage.FieldData.SizeX / 2 * -1,
-            _storage.FieldData.SizeY / 2
+            field.SizeX / 2 * -1,
+            field.SizeY / 2
         );
 
         return (symbolContainer, cellContainer);
@@ -55,7 +56,7 @@ public class ContractInitField
 
     private GameObject GenerateCharacterContainer()
     {
-
+        return null;
     }
 
 
@@ -63,19 +64,21 @@ public class ContractInitField
     private List<CellBase> GenerateField(GameObject cellContainer)
     {
         List<CellBase> cellList = new();
+        Field field = _storage.FieldData.Field;
 
-        for (int y = 0; y < _storage.FieldData.SizeY; y++)
+        for (int y = 0; y < field.SizeY; y++)
         {
-            for (int x = 0; x < _storage.FieldData.SizeX; x++)
+            for (int x = 0; x < field.SizeX; x++)
             {
                 GameObject cell = new($"{x}-{y}");
                 cell.transform.SetParent(cellContainer.transform);
                 cell.transform.localPosition = new(
-                    x * _storage.FieldData.StepX,
-                    y * _storage.FieldData.StepY * -1
+                    x * field.StepX,
+                    y * field.StepY * -1,
+                    1
                 );
                 CellBase cellBase = cell.AddComponent<CellBase>();
-                cellBase.Init(new(x, y), _storage.FieldData.CellTexture);
+                cellBase.Init(new(x, y), _storage.FieldData.Cell);
                 cellList.Add(cellBase);
             }
         }
@@ -92,7 +95,8 @@ public class ContractInitField
             symbol.transform.SetParent(symbolContainer.transform);
             symbol.transform.position = new(
                 cell.transform.position.x,
-                cell.transform.position.y
+                cell.transform.position.y,
+                0
             );
             SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
             symbolBase.SetSymbolData(symbolData);
@@ -106,11 +110,15 @@ public class ContractInitField
     // Вспомогательный класс
     private T[,] ListToArray<T>(List<T> list)
     {
-        T[,] array = new T[_storage.FieldData.SizeX, _storage.FieldData.SizeY];
+        Field field = _storage.FieldData.Field;
+        T[,] array = new T[
+            field.SizeX,
+            field.SizeY
+        ];
         int index = 0;
-        for (int y = 0; y < _storage.FieldData.SizeY; y++)
+        for (int y = 0; y < field.SizeY; y++)
         {
-            for (int x = 0; x < _storage.FieldData.SizeX; x++)
+            for (int x = 0; x < field.SizeX; x++)
             {
                 array[x, y] = list[index];
                 index++;

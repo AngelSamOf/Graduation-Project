@@ -6,6 +6,29 @@ using System.Collections.Generic;
 public class FieldObject : ScriptableObject
 {
     // Параметры поля
+    public Field Field => _field;
+    [SerializeField] private Field _field = new();
+
+    // Клетка
+    public CellObject Cell => _cell;
+    [SerializeField] private CellObject _cell;
+
+    // Символы
+    public List<FieldSymbol> Symbols => _symbols;
+    [SerializeField] private List<FieldSymbol> _symbols = new();
+
+    // Персонажи
+    public List<CharacterObject> PlayerCharacter => _playerCharacter;
+    [SerializeField] private List<CharacterObject> _playerCharacter = new();
+
+    // Условия победы
+    public Wins Wins => _wins;
+    [SerializeField] private Wins _wins = new();
+}
+
+[Serializable]
+public class Field
+{
     public int SizeX => _sizeX;
     [SerializeField] private int _sizeX = 10;
     public int SizeY => _sizeY;
@@ -14,20 +37,11 @@ public class FieldObject : ScriptableObject
     [SerializeField] private float _stepX = 0;
     public float StepY => _stepY;
     [SerializeField] private float _stepY = 0;
+}
 
-    // Символы
-    public List<FieldSymbol> Symbols => _symbols;
-    [SerializeField] private List<FieldSymbol> _symbols = new();
-
-    // Текстура клеток
-    public Sprite CellTexture => _cellTexture;
-    [SerializeField] private Sprite _cellTexture = null;
-
-    // Персонажи
-    public List<CharacterObject> PlayerCharacter => _playerCharacter;
-    [SerializeField] private List<CharacterObject> _playerCharacter;
-
-    // Условия победы
+[Serializable]
+public class Wins
+{
     // Победа по количеству ходов
     public bool IsStepWin => _isStepWin;
     [SerializeField] private bool _isStepWin = false;

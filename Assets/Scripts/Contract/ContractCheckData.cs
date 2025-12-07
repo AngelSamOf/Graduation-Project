@@ -42,32 +42,32 @@ public class ContractCheckData
 
     private void WinConditionCheck()
     {
-        FieldObject data = _storage.FieldData;
+        Wins wins = _storage.FieldData.Wins;
 
         // Проверка что установлены победные условия
         if (
-            !data.IsStepWin
-            && !data.IsSymbolWin
-            && !data.IsCombinationWin
+            !wins.IsStepWin
+            && !wins.IsSymbolWin
+            && !wins.IsCombinationWin
         )
         {
             throw new Exception("There are no winning conditions set for the level");
         }
 
         // Проверка что количетсво ходов больше 0
-        if (data.IsStepWin && data.StepLimit <= 0)
+        if (wins.IsStepWin && wins.StepLimit <= 0)
         {
             throw new Exception("The number of moves must be greater than 0");
         }
 
         // Проверка символов
-        if (data.IsSymbolWin)
+        if (wins.IsSymbolWin)
         {
-            if (data.SymbolConditions.Count <= 0)
+            if (wins.SymbolConditions.Count <= 0)
             {
                 throw new Exception("No character set conditions have been added");
             }
-            foreach (SymbolCondition condition in data.SymbolConditions)
+            foreach (SymbolCondition condition in wins.SymbolConditions)
             {
                 if (condition.Count <= 0)
                 {
@@ -77,13 +77,13 @@ public class ContractCheckData
         }
 
         // Проверка победных комбинаций
-        if (data.IsCombinationWin)
+        if (wins.IsCombinationWin)
         {
-            if (data.CombinationConditions.Count <= 0)
+            if (wins.CombinationConditions.Count <= 0)
             {
                 throw new Exception("Not a single set of winning combinations is specified");
             }
-            foreach (CombinationCondition condition in data.CombinationConditions)
+            foreach (CombinationCondition condition in wins.CombinationConditions)
             {
                 if (
                     condition.CombinationType == WinType.NotSelected

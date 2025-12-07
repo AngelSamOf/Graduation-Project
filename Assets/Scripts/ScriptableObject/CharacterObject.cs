@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterObject", menuName = "Scriptable Object/Character Object")]
@@ -18,4 +19,7 @@ public class CharacterObject : ScriptableObject
     [SerializeField] private EnergyObject _energyData;
     public HPObject HPData => _hpData;
     [SerializeField] private HPObject _hpData;
+
+    public List<BaseSpell> Spells => _spells;
+    [SerializeField] private List<BaseSpell> _spells;
 }

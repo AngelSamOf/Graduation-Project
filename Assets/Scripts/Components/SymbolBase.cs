@@ -25,20 +25,21 @@ public class SymbolBase :
     // Погрешность в пикселях при нажатии
     private const float _clickThreshold = 25f;
 
-    public void Init()
+    public void Init(SymbolObject data)
     {
         // Получение компонентов с объекта
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
+        _collider.size = new(1.0f, 1.0f);
 
         // Инициализация компонента
-        UpdateTexture();
-        _collider.size = new(1.0f, 1.0f);
+        SetSymbolData(data);
     }
 
     public void SetSymbolData(SymbolObject data)
     {
         _symbolData = data;
+        UpdateTexture();
     }
 
     public void SetPosition(int x, int y)

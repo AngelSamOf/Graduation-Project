@@ -92,9 +92,8 @@ public class ContractInitField
                 0
             );
             SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
-            symbolBase.SetSymbolData(symbolData);
             symbolBase.SetPosition(cell.Position.X, cell.Position.Y);
-            symbolBase.Init();
+            symbolBase.Init(symbolData);
             symbolList.Add(symbolBase);
         }
         return symbolList;

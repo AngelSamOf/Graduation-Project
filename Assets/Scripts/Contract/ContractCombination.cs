@@ -170,7 +170,6 @@ public class ContractCombination
             );
             SymbolObject newSymbol = SymbolMethods.GetRandomSymbol(_storage);
             symbol.SetSymbolData(newSymbol);
-            symbol.UpdateTexture();
 
             // Запуск анимации падения
             tasks.Add(symbol.MoveSymbol(

@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(BoxCollider2D))]
 public class CharacterBase : MonoBehaviour, IPointerClickHandler
 {
+    public CharacterObject Data => _data;
     protected CharacterObject _data;
+
     protected BattleStorage _storage;
 
     protected BoxCollider2D _collider;
@@ -40,6 +42,21 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
         EventEmitter.WinCombination += UpdateEnergy;
     }
 
+    public void RemoveEnergy(int count)
+    {
+        // Проверка что хватает энергии
+        if (_currentEnergy - count < 0)
+        {
+            return;
+        }
+
+        for (int i = _currentEnergy; i >= _currentEnergy - count; i--)
+        {
+            _energyList[i].SetState(false);
+        }
+        _currentEnergy -= count;
+    }
+
     public void UpdateEnergy(WinCombination win)
     {
         // Проверка на символ
@@ -60,7 +77,7 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(_data.name);
+        EventEmitter.ClickCharacter.Invoke(this);
     }
 
     private void InitSubComponents()

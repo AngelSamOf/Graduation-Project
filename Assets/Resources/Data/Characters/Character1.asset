@@ -19,3 +19,5 @@ MonoBehaviour:
   _texture: {fileID: 21300000, guid: 8cb7ec5061de9824da6224a749e7499c, type: 3}
   _energyData: {fileID: 11400000, guid: 9c9bcd971b46cca43826f42dcd2fa45d, type: 2}
   _hpData: {fileID: 11400000, guid: fb8ec408d60a70349a0bf29c13491da5, type: 2}
+  _spells:
+  - {fileID: 11400000, guid: d68bb3b906b701c479dcb0281598409f, type: 2}

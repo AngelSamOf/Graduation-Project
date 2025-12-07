@@ -9,6 +9,7 @@ public class EntryGate : MonoBehaviour
     private ContractSymbolMove _contractSymbolMove;
     private ContractCheckField _contractCheckField;
     private ContractCombination _contractCombination;
+    private ContractShowSpell _contractShowSpell;
 
     async void Start()
     {
@@ -24,6 +25,7 @@ public class EntryGate : MonoBehaviour
         _contractSymbolMove = ContractSymbolMove.GetInstance();
         _contractCheckField = ContractCheckField.GetInstance();
         _contractCombination = ContractCombination.GetInstance();
+        _contractShowSpell = ContractShowSpell.GetInstance();
 
         // Инициализация победных условий
         ContractInitWinCondition.GetInstance().Implement();
@@ -39,6 +41,8 @@ public class EntryGate : MonoBehaviour
         // Подписки на события
         // Подписка на перемещение символа на поле
         EventEmitter.MoveSymbol += SymbolMove;
+        // Отображение способностей при нажатии на персонажа
+        EventEmitter.ClickCharacter += _contractShowSpell.Implement;
     }
 
     private async void SymbolMove(Direction direction, SymbolBase symbol)

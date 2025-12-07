@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnemeyCharacterComponents : CharacterComponent
 {
     public new CharacterEnemy Data => _data;

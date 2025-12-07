@@ -20,10 +20,20 @@ public class ContractCheckData
         _storage = BattleStorage.GetInstance();
 
         // Запуск проверок данных
+        CharacterCheck();
         SymbolWeightCheck();
         WinConditionCheck();
 
+
         Debug.Log("Contract \"Check Data\": end Implement");
+    }
+
+    private void CharacterCheck()
+    {
+        if (_storage.FieldData.PlayerCharacter.Count == 0)
+        {
+            throw new Exception("More than one player character has not been added");
+        }
     }
 
     private void SymbolWeightCheck()

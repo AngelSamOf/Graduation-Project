@@ -1,17 +1,4 @@
-using UnityEngine;
 using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
-
-[Serializable]
-public class DefaultComponents
-{
-    public Transform FieldContainer => _fieldContainer;
-    [SerializeField] protected Transform _fieldContainer;
-
-    public Transform SymbolContainer => _symbolContainer;
-    [SerializeField] protected Transform _symbolContainer;
-}
 
 public class WinCombination
 {

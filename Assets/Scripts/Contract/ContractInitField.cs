@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ContractInitField
@@ -20,9 +19,12 @@ public class ContractInitField
         // Инициализация данных
         _storage = BattleStorage.GetInstance();
 
+        // Добавление на поле основных контейнеров
+        (GameObject symbolContainer, GameObject cellContainer) = GenerateBaseContainer();
+
         // Получение данных
-        List<CellBase> cellList = this.GenerateField();
-        List<SymbolBase> symbolsList = this.GenerateSymbol(cellList);
+        List<CellBase> cellList = GenerateField(cellContainer);
+        List<SymbolBase> symbolsList = GenerateSymbol(cellList, symbolContainer);
 
         //Сохранение данных
         CellBase[,] fieldMap = ListToArray(cellList);
@@ -32,7 +34,24 @@ public class ContractInitField
         Debug.Log("Contract \"Init Field\": end Implement");
     }
 
-    private List<CellBase> GenerateField()
+    private (GameObject symbolContainer, GameObject cellContainer) GenerateBaseContainer()
+    {
+        GameObject cellContainer = new("cell-container");
+        GameObject symbolContainer = new("symbol-container");
+
+        cellContainer.transform.position = new Vector3(
+            _storage.FieldData.SizeX / 2 * -1,
+            _storage.FieldData.SizeY / 2
+        );
+        symbolContainer.transform.position = new Vector3(
+            _storage.FieldData.SizeX / 2 * -1,
+            _storage.FieldData.SizeY / 2
+        );
+
+        return (symbolContainer, cellContainer);
+    }
+
+    private List<CellBase> GenerateField(GameObject cellContainer)
     {
         List<CellBase> cellList = new();
 
@@ -41,39 +60,31 @@ public class ContractInitField
             for (int x = 0; x < _storage.FieldData.SizeX; x++)
             {
                 GameObject cell = new($"{x}-{y}");
-                cell.transform.position = new(
+                cell.transform.SetParent(cellContainer.transform);
+                cell.transform.localPosition = new(
                     x * _storage.FieldData.StepX,
                     y * _storage.FieldData.StepY * -1
                 );
-                cell.transform.SetParent(_storage.Components.FieldContainer);
                 CellBase cellBase = cell.AddComponent<CellBase>();
                 cellBase.Init(new(x, y), _storage.FieldData.CellTexture);
                 cellList.Add(cellBase);
             }
         }
-        _storage.Components.FieldContainer.position = new Vector3(
-            _storage.FieldData.SizeX / 2 * -1,
-            _storage.FieldData.SizeY / 2
-        );
-        _storage.Components.SymbolContainer.position = new Vector3(
-            _storage.FieldData.SizeX / 2 * -1,
-            _storage.FieldData.SizeY / 2
-        );
         return cellList;
     }
 
-    private List<SymbolBase> GenerateSymbol(List<CellBase> field)
+    private List<SymbolBase> GenerateSymbol(List<CellBase> field, GameObject symbolContainer)
     {
         List<SymbolBase> symbolList = new();
         foreach (CellBase cell in field)
         {
             SymbolObject symbolData = SymbolMethods.GetRandomSymbol(_storage);
-            GameObject symbol = new("Symbol");
+            GameObject symbol = new("symbol");
+            symbol.transform.SetParent(symbolContainer.transform);
             symbol.transform.position = new(
                 cell.transform.position.x,
                 cell.transform.position.y
             );
-            symbol.transform.SetParent(_storage.Components.SymbolContainer);
             SymbolBase symbolBase = symbol.AddComponent<SymbolBase>();
             symbolBase.SetSymbolData(symbolData);
             symbolBase.SetPosition(cell.Position.X, cell.Position.Y);

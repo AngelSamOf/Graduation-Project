@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EntryGate : MonoBehaviour
 {
-    [SerializeField] protected DefaultComponents _components;
     [SerializeField] protected FieldObject _field;
     protected BattleStorage _storage;
 
@@ -16,7 +15,6 @@ public class EntryGate : MonoBehaviour
         // Инициализация
         // Инициализация хранилища
         _storage = BattleStorage.GetInstance();
-        _storage.SetComponents(_components);
         _storage.SetFieldData(_field);
 
         // Проверка данных на валидность

@@ -78,7 +78,13 @@ public class ContractInitWinCondition
 
     private void CheckSymbol(WinCombination data)
     {
-        _storage.IncreaseSymbolCounter(data.ID, data.Positions.Count);
+        // Костыль
+        // При кросс комбинации убираем 1 символ для правильного подсчёта
+        int count = data.WinType == WinType.Destroy
+            ? data.Positions.Count - 1
+            : data.Positions.Count;
+
+        _storage.IncreaseSymbolCounter(data.ID, count);
         SymbolCondition targetCondition = _storage.FieldData.SymbolConditions
             .Find(condition => condition.SymbolID == data.ID);
 

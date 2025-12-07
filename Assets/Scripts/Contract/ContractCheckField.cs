@@ -141,6 +141,8 @@ public class ContractCheckField
                 {
                     currentWin.SetWinType(WinType.WinCrossroad);
                     _winList[j].SetWinType(WinType.Destroy);
+                    _storage.AddWin(_winList[j]);
+                    continue;
                 }
             }
 
@@ -161,11 +163,7 @@ public class ContractCheckField
                 }
             }
 
-            // Сохранение победной комбинации в хранилище
-            if (currentWin.WinType != WinType.Destroy)
-            {
-                _storage.AddWin(currentWin);
-            }
+            _storage.AddWin(currentWin);
         }
     }
 

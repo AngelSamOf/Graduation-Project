@@ -15,13 +15,6 @@ public class BattleStorage
 
     public readonly Constants Constants = new();
 
-    public DefaultComponents Components => _components;
-    private DefaultComponents _components;
-    public void SetComponents(DefaultComponents data)
-    {
-        _components = data;
-    }
-
     public FieldObject FieldData => _fieldData;
     private FieldObject _fieldData;
     public void SetFieldData(FieldObject data)

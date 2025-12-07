@@ -71,9 +71,9 @@ public class BattleStorage
     {
         _symbolCount.Add(id, 0);
     }
-    public void IncreaseSymbolCounter(string id)
+    public void IncreaseSymbolCounter(string id, int count)
     {
-        _symbolCount[id] += 1;
+        _symbolCount[id] += count;
     }
 
     public Dictionary<WinType, int> CombinationCount => _combinationCount;

@@ -78,15 +78,20 @@ public class ContractInitWinCondition
 
     private void CheckSymbol(WinCombination data)
     {
-        _storage.IncreaseSymbolCounter(data.ID);
+        _storage.IncreaseSymbolCounter(data.ID, data.Positions.Count);
         SymbolCondition targetCondition = _storage.FieldData.SymbolConditions
             .Find(condition => condition.SymbolID == data.ID);
-        Debug.Log(targetCondition.SymbolID);
-        CheckWin(targetCondition, _storage.SymbolCount[data.ID]);
+
+        // Сохраняем, если есть такое условие победы
+        if (targetCondition != null)
+        {
+            CheckWin(targetCondition, _storage.SymbolCount[data.ID]);
+        }
     }
 
     private void CheckCombination(WinCombination data)
     {
+        // Скип кодовых комбинаций
         if (data.WinType == WinType.Destroy || data.WinType == WinType.NotSelected)
         {
             return;
@@ -95,9 +100,12 @@ public class ContractInitWinCondition
         _storage.IncreaseWinCounter(data.WinType);
         CombinationCondition targetCondition = _storage.FieldData.CombinationConditions
             .Find(condition => condition.CombinationType == data.WinType);
-        Debug.Log(targetCondition.CombinationType);
-        CheckWin(targetCondition, _storage.CombinationCount[data.WinType]);
 
+        // Сохраняем, если есть такая комбинация
+        if (targetCondition != null)
+        {
+            CheckWin(targetCondition, _storage.CombinationCount[data.WinType]);
+        }
     }
 
     private void CheckWin(Condition condition, int currentValue)

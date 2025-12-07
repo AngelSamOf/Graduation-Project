@@ -30,6 +30,9 @@ public class EntryGate : MonoBehaviour
 
         // Инициализация поля
         ContractInitField.GetInstance().Implement();
+        // Инициализация персонажей
+        ContractInitCharacter.GetInstance().Implement();
+
         // Проверка сгенерированного поля на победные комбинации
         await CheckWinsCircle();
 

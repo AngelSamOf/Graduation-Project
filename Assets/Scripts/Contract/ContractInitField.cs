@@ -21,7 +21,6 @@ public class ContractInitField
 
         // Добавление на поле основных контейнеров
         (GameObject symbolContainer, GameObject cellContainer) = GenerateFieldContainer();
-        GameObject characterContainer = GenerateCharacterContainer();
 
         // Получение данных
         List<CellBase> cellList = GenerateField(cellContainer);
@@ -42,11 +41,11 @@ public class ContractInitField
         GameObject symbolContainer = new("symbol-container");
 
         Field field = _storage.FieldData.Field;
-        cellContainer.transform.position = new Vector3(
+        cellContainer.transform.position = new(
             field.SizeX / 2 * -1,
             field.SizeY / 2
         );
-        symbolContainer.transform.position = new Vector3(
+        symbolContainer.transform.position = new(
             field.SizeX / 2 * -1,
             field.SizeY / 2
         );
@@ -54,14 +53,8 @@ public class ContractInitField
         return (symbolContainer, cellContainer);
     }
 
-    private GameObject GenerateCharacterContainer()
-    {
-        return null;
-    }
-
-
     // Создание клеток и симболов
-    private List<CellBase> GenerateField(GameObject cellContainer)
+    private List<CellBase> GenerateField(GameObject container)
     {
         List<CellBase> cellList = new();
         Field field = _storage.FieldData.Field;
@@ -71,7 +64,7 @@ public class ContractInitField
             for (int x = 0; x < field.SizeX; x++)
             {
                 GameObject cell = new($"{x}-{y}");
-                cell.transform.SetParent(cellContainer.transform);
+                cell.transform.SetParent(container.transform);
                 cell.transform.localPosition = new(
                     x * field.StepX,
                     y * field.StepY * -1,
@@ -85,14 +78,14 @@ public class ContractInitField
         return cellList;
     }
 
-    private List<SymbolBase> GenerateSymbol(List<CellBase> field, GameObject symbolContainer)
+    private List<SymbolBase> GenerateSymbol(List<CellBase> field, GameObject container)
     {
         List<SymbolBase> symbolList = new();
         foreach (CellBase cell in field)
         {
             SymbolObject symbolData = SymbolMethods.GetRandomSymbol(_storage);
             GameObject symbol = new("symbol");
-            symbol.transform.SetParent(symbolContainer.transform);
+            symbol.transform.SetParent(container.transform);
             symbol.transform.position = new(
                 cell.transform.position.x,
                 cell.transform.position.y,

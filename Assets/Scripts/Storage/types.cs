@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class WinCombination
 {
@@ -61,6 +62,10 @@ public class Constants
     public readonly float ShiftTime = 0.2f;
     public readonly float ShiftMove = 0.2f;
     public readonly float DropStartPosY = 5f;
+    public readonly float CharacterShift = 3f;
+    public readonly Vector2 CharacterColliderSize = new(2f, 2f);
+    public readonly float CharacterSubContainerShift = 1.5f;
+    public readonly float IconShift = 0.6f;
 }
 
 public enum Direction

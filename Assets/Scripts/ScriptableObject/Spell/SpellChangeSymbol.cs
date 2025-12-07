@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpellChangeSymbol", menuName = "Scriptable Spell/Change Symbol")]
 public class SpellChangeSymbol : BaseSpell
 {
-    public string SymbolIDFirst => _symbolIDFirst;
     [SerializeField] private string _symbolIDFirst;
-    public string SymbolIDSecond => _symbolIDSecond;
     [SerializeField] private string _symbolIDSecond;
 
     public override async void Implement()
@@ -25,7 +23,7 @@ public class SpellChangeSymbol : BaseSpell
     {
         Field field = storage.FieldData.Field;
         FieldSymbol symbolWeigth = storage.FieldData.Symbols.Find(
-            symbol => symbol.Symbol.ID == SymbolIDSecond
+            symbol => symbol.Symbol.ID == _symbolIDSecond
         );
         // Вывод ошибки если данные не найдены
         if (symbolWeigth == null)
@@ -40,7 +38,7 @@ public class SpellChangeSymbol : BaseSpell
             {
                 // Проверяем символ на ID
                 SymbolBase symbol = storage.SymbolMap[x, y];
-                if (symbol.SymbolData.ID != SymbolIDFirst)
+                if (symbol.SymbolData.ID != _symbolIDFirst)
                 {
                     continue;
                 }

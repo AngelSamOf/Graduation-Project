@@ -97,5 +97,19 @@ public class BattleStorage
     {
         _fulfilledVictoryConditions += 1;
     }
+
+    public List<PlayerCharacterComponent> PlayerCharacter => _playerCharacter;
+    private List<PlayerCharacterComponent> _playerCharacter;
+    public void SetPlayerCharacter(List<PlayerCharacterComponent> characters)
+    {
+        _playerCharacter = characters;
+    }
+
+    public List<EnemeyCharacterComponents> EnemyCharacter => _enemyCharacter;
+    private List<EnemeyCharacterComponents> _enemyCharacter;
+    public void SetEnemyCharacter(List<EnemeyCharacterComponents> characters)
+    {
+        _enemyCharacter = characters;
+    }
 }
 

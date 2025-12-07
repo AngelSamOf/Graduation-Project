@@ -23,7 +23,12 @@ public class ContractInitCharacter
         (GameObject characterContainer, GameObject enemyContainer) = GenerateCharacterContainer();
 
         // Генерация персонажей
-        List<CharacterBase> characters = GenerateCharacter(characterContainer);
+        List<PlayerCharacterComponent> charactersPlayer = GeneratePlayerCharacter(characterContainer);
+        List<EnemeyCharacterComponents> charactersEnemy = GenerateEnemyCharacter(enemyContainer);
+
+        // Сохранение персонажей
+        _storage.SetPlayerCharacter(charactersPlayer);
+        _storage.SetEnemyCharacter(charactersEnemy);
 
         Debug.Log("Contract \"Init Character\": end Implement");
     }
@@ -46,18 +51,38 @@ public class ContractInitCharacter
         return (playerCharacterContainer, enemyCharacterContainer);
     }
 
-    private List<CharacterBase> GenerateCharacter(GameObject container)
+    private List<PlayerCharacterComponent> GeneratePlayerCharacter(GameObject container)
     {
-        List<CharacterBase> charactersList = new();
+        List<PlayerCharacterComponent> charactersList = new();
 
-        foreach (CharacterObject characterData in _storage.FieldData.PlayerCharacter)
+        foreach (CharacterPlayer characterData in _storage.FieldData.PlayerCharacter)
         {
             GameObject character = new(characterData.name);
             character.transform.SetParent(container.transform);
             character.transform.localPosition = Vector3.zero;
-            CharacterBase characterBase = character.AddComponent<CharacterBase>();
-            characterBase.Init(characterData);
-            charactersList.Add(characterBase);
+            PlayerCharacterComponent characterComponent
+                = character.AddComponent<PlayerCharacterComponent>();
+            characterComponent.Init(characterData);
+            charactersList.Add(characterComponent);
+        }
+
+        return charactersList;
+    }
+
+    private List<EnemeyCharacterComponents> GenerateEnemyCharacter(GameObject container)
+    {
+        List<EnemeyCharacterComponents> charactersList = new();
+
+        foreach (CharacterEnemy characterData in _storage.FieldData.EnemyCharacter)
+        {
+            GameObject character = new(characterData.name);
+            character.transform.SetParent(container.transform);
+            character.transform.localPosition = Vector3.zero;
+            character.transform.localScale = new(-1, 1);
+            EnemeyCharacterComponents characterComponent
+                = character.AddComponent<EnemeyCharacterComponents>();
+            characterComponent.Init(characterData);
+            charactersList.Add(characterComponent);
         }
 
         return charactersList;

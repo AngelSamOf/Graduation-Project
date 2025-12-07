@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 public class SpellComponent : MonoBehaviour, IPointerClickHandler
 {
     private BaseSpell _data;
-    CharacterBase _character;
+    PlayerCharacterComponent _character;
 
-    public void Init(BaseSpell data, CharacterBase character)
+    public void Init(BaseSpell data, PlayerCharacterComponent character)
     {
         _data = data;
         _character = character;

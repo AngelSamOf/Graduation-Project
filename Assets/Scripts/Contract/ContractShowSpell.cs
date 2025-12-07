@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ContractShowSpell
@@ -15,7 +14,7 @@ public class ContractShowSpell
         return _instance;
     }
 
-    public void Implement(CharacterBase character)
+    public void Implement(PlayerCharacterComponent character)
     {
         Debug.Log("Contract \"Show Spell\": start Implement");
 
@@ -46,7 +45,7 @@ public class ContractShowSpell
         return spellContainer.transform;
     }
 
-    private void GenerateSpell(CharacterBase character)
+    private void GenerateSpell(PlayerCharacterComponent character)
     {
         int index = 0;
         foreach (BaseSpell spellData in character.Data.Spells)

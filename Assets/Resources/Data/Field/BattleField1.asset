@@ -36,7 +36,9 @@ MonoBehaviour:
   - _weight: 0.125
     _symbol: {fileID: 11400000, guid: 589b9bb539385ad4896671d63192da29, type: 2}
   _playerCharacter:
-  - {fileID: 11400000, guid: 2c56cc8d7751ba24dad69d92348ee3bf, type: 2}
+  - {fileID: 11400000, guid: 63291e3e24e2266488cf924cb25d1598, type: 2}
+  _enemyCharacter:
+  - {fileID: 11400000, guid: 2bdaa19ab69ada84aa6a773d4ceb7d41, type: 2}
   _wins:
     _isStepWin: 1
     _stepLimit: 8

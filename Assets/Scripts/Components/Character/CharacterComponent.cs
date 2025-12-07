@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class CharacterBase : MonoBehaviour, IPointerClickHandler
+public class CharacterComponent : MonoBehaviour
 {
-    public CharacterObject Data => _data;
-    protected CharacterObject _data;
+    public BaseCharacter Data => _data;
+    protected BaseCharacter _data;
 
     protected BattleStorage _storage;
 
@@ -22,7 +20,7 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
     public int CurrentEnergy => _currentEnergy;
     protected int _currentEnergy;
 
-    public void Init(CharacterObject data)
+    public virtual void Init(BaseCharacter data)
     {
         // Сохранение данных
         _data = data;
@@ -31,16 +29,33 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
         _currentEnergy = 0;
         _currentHP = _data.HP;
 
-        // Получение компонентов  с объекта
-        _collider = GetComponent<BoxCollider2D>();
-        _collider.size = _storage.Constants.CharacterColliderSize;
-
         // Инициализация дополнительных компонентов
         InitSubComponents();
 
         // Подписка на события
         EventEmitter.WinCombination += UpdateEnergy;
-        EventEmitter.WinCombination += CheckPassive;
+    }
+
+    public void TakeDamage(int count)
+    {
+        int targetHP = _currentHP - count <= 0 ?
+            0 :
+            _currentHP - count;
+        for (int i = _currentHP; i > targetHP; i--)
+        {
+            _hpList[i - 1].SetState(false);
+        }
+        _currentHP -= count;
+
+        if (_currentHP <= 0)
+        {
+            OnDead();
+        }
+    }
+
+    private void OnDead()
+    {
+        Debug.Log($"Character {_data.name} dead!");
     }
 
     public void RemoveEnergy(int count)
@@ -51,9 +66,9 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        for (int i = _currentEnergy; i >= _currentEnergy - count; i--)
+        for (int i = _currentEnergy; i > _currentEnergy - count; i--)
         {
-            _energyList[i].SetState(false);
+            _energyList[i - 1].SetState(false);
         }
         _currentEnergy -= count;
     }
@@ -74,25 +89,6 @@ public class CharacterBase : MonoBehaviour, IPointerClickHandler
 
         _energyList[_currentEnergy].SetState(true);
         _currentEnergy += 1;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        EventEmitter.ClickCharacter.Invoke(this);
-    }
-
-    public void CheckPassive(WinCombination win)
-    {
-        // Проверка условий
-        if (
-            win.WinType != WinType.WinCrossroad ||
-            win.ID != _data.Symbol.ID
-        )
-        {
-            return;
-        }
-
-        _data.PassiveSpell.Implement();
     }
 
     private void InitSubComponents()

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc4a359a69e53fb40ac3f44cb5405243, type: 3}
-  m_Name: Character1
+  m_Script: {fileID: 11500000, guid: 01495e8c2d73ab449bf905b836d3ac08, type: 3}
+  m_Name: Player1
   m_EditorClassIdentifier: 
-  _name: Character 1
+  _name: player-character-1
   _hp: 3
   _energy: 3
   _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}

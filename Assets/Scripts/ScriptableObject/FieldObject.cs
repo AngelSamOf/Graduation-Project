@@ -18,8 +18,10 @@ public class FieldObject : ScriptableObject
     [SerializeField] private List<FieldSymbol> _symbols = new();
 
     // Персонажи
-    public List<CharacterObject> PlayerCharacter => _playerCharacter;
-    [SerializeField] private List<CharacterObject> _playerCharacter = new();
+    public List<CharacterPlayer> PlayerCharacter => _playerCharacter;
+    [SerializeField] private List<CharacterPlayer> _playerCharacter = new();
+    public List<CharacterEnemy> EnemyCharacter => _enemyCharacter;
+    [SerializeField] private List<CharacterEnemy> _enemyCharacter = new();
 
     // Условия победы
     public Wins Wins => _wins;

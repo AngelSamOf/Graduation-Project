@@ -34,6 +34,7 @@ public class ContractSymbolMove
         _isImplement = true;
         // Инициализация данных
         _storage = BattleStorage.GetInstance();
+        Constants constants = _storage.FieldData.Constants;
         List<Task> tasks = new();
 
         // Получение текущего символа на поле
@@ -51,7 +52,7 @@ public class ContractSymbolMove
         )
         {
             tasks.Add(currentSymbol.MoveSymbolAndReturn(
-                _storage.Constants.ShiftTime,
+                constants.ShiftTime,
                 currentCell.transform.localPosition + GetOutDirection(direction)
             ));
 
@@ -70,11 +71,11 @@ public class ContractSymbolMove
 
         // Запуск анимаций смены
         tasks.Add(currentSymbol.MoveSymbol(
-            _storage.Constants.MoveTime,
+            constants.MoveTime,
             targetCell.transform.localPosition
         ));
         tasks.Add(targetSymbol.MoveSymbol(
-            _storage.Constants.MoveTime,
+            constants.MoveTime,
             currentCell.transform.localPosition
         ));
 
@@ -109,16 +110,17 @@ public class ContractSymbolMove
         Direction direction
     )
     {
+        Constants constants = _storage.FieldData.Constants;
         switch (direction)
         {
             case Direction.horizontalRight:
-                return new(_storage.Constants.ShiftMove, 0);
+                return new(constants.ShiftMove, 0);
             case Direction.horizontalLeft:
-                return new(-_storage.Constants.ShiftMove, 0);
+                return new(-constants.ShiftMove, 0);
             case Direction.verticalTop:
-                return new(0, _storage.Constants.ShiftMove);
+                return new(0, constants.ShiftMove);
             case Direction.verticalBottom:
-                return new(0, -_storage.Constants.ShiftMove);
+                return new(0, -constants.ShiftMove);
             default:
                 return Vector3.zero;
         }

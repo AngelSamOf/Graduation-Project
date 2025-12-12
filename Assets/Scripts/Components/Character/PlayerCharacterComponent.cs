@@ -17,7 +17,7 @@ public class PlayerCharacterComponent : CharacterComponent, IPointerClickHandler
 
         // Получение компонентов  с объекта
         _collider = GetComponent<BoxCollider2D>();
-        _collider.size = _storage.Constants.CharacterColliderSize;
+        _collider.size = _storage.FieldData.Constants.CharacterColliderSize;
 
         // Подписка на события
         EventEmitter.WinCombination += CheckPassive;

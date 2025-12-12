@@ -30,6 +30,10 @@ public class FieldObject : ScriptableObject
     // Условия победы
     public Wins Wins => _wins;
     [SerializeField] private Wins _wins = new();
+
+    // Константы
+    public Constants Constants => _constants;
+    [SerializeField] private Constants _constants;
 }
 
 [Serializable]
@@ -113,4 +117,37 @@ public class Condition
     {
         _isComplete = true;
     }
+}
+
+[Serializable]
+public class Constants
+{
+    public float MoveTime => _moveTime;
+    [SerializeField] private float _moveTime = 0.5f;
+    public float ShiftTime => _shiftTime;
+    [SerializeField] private readonly float _shiftTime = 0.2f;
+    public float ShiftMove => _shiftMove;
+    [SerializeField] private float _shiftMove = 0.2f;
+    public float DropStartPosY => _dropStartPosY;
+    [SerializeField] private float _dropStartPosY = 5f;
+    public float CharacterShift => _characterShift;
+    [SerializeField] private float _characterShift = 2.75f;
+    public Vector2 CharacterColliderSize => _characterColliderSize;
+    [SerializeField] private Vector2 _characterColliderSize = new(3f, 4f);
+    public float CharacterSubContainerShift => _characterSubContainerShift;
+    [SerializeField] private float _characterSubContainerShift = 2.2f;
+    public float IconStartShift => _iconStartShift;
+    [SerializeField] private float _iconStartShift = -1f;
+    public float IconShift => _iconShift;
+    [SerializeField] private float _iconShift = 1f;
+    public float TopPanelY => _topPanelY;
+    [SerializeField] private float _topPanelY = 6.6f;
+    public float CanvasPPI => _canvasPPI;
+    [SerializeField] private float _canvasPPI = 72f;
+    public float ConditionPoxY => _conditionPoxY;
+    [SerializeField] private float _conditionPoxY = 6.1f;
+    public float ConditionPoxX => _conditionPoxX;
+    [SerializeField] private float _conditionPoxX = -2.5f;
+    public float ConditionSpacing => _conditionSpacing;
+    [SerializeField] private float _conditionSpacing = 150;
 }

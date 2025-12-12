@@ -87,12 +87,37 @@ public class CharacterComponent : MonoBehaviour
             return;
         }
 
-        _energyList[_currentEnergy].SetState(true);
-        _currentEnergy += 1;
+        int energyNewCount = 0;
+
+        if (win.WinType == WinType.WinTriple || win.WinType == WinType.WinCrossroad)
+        {
+            energyNewCount = 1;
+        }
+        else if (win.WinType == WinType.WinQuadruple)
+        {
+            energyNewCount = 2;
+        }
+        else if (win.WinType == WinType.WinTheFifth)
+        {
+            energyNewCount = 3;
+        }
+
+        energyNewCount = energyNewCount + _currentEnergy > _data.Energy
+            ? _data.Energy - _currentEnergy
+            : energyNewCount;
+
+        for (int i = 0; i < energyNewCount; i++)
+        {
+            _energyList[_currentEnergy + i].SetState(true);
+        }
+
+        _currentEnergy += energyNewCount;
     }
 
     private void InitSubComponents()
     {
+        Constants constants = _storage.FieldData.Constants;
+
         // Создание текстуры персонажа
         GameObject characterTextureObj = new("texture");
         characterTextureObj.transform.SetParent(transform);
@@ -105,16 +130,16 @@ public class CharacterComponent : MonoBehaviour
         GameObject energyContainer = new("energy-container");
         energyContainer.transform.SetParent(transform);
         energyContainer.transform.localPosition = new(
-            _storage.Constants.CharacterSubContainerShift,
-            _storage.Constants.CharacterColliderSize.y / 2
+            constants.CharacterSubContainerShift,
+            constants.CharacterColliderSize.y / 2
         );
         _energyList = GenerateEnergy(energyContainer.transform);
 
         GameObject hpContainer = new("hp-container");
         hpContainer.transform.SetParent(transform);
         hpContainer.transform.localPosition = new(
-            -_storage.Constants.CharacterSubContainerShift,
-            _storage.Constants.CharacterColliderSize.y / 2
+            -constants.CharacterSubContainerShift,
+            constants.CharacterColliderSize.y / 2
         );
         _hpList = GenerateHP(hpContainer.transform);
     }
@@ -122,20 +147,26 @@ public class CharacterComponent : MonoBehaviour
     private List<EnergyComponent> GenerateEnergy(Transform container)
     {
         List<EnergyComponent> energyComponents = new();
+        Constants constants = _storage.FieldData.Constants;
         // Создание иконки энергии
         GameObject symbol = new($"energy-symbol");
         symbol.transform.SetParent(container);
-        symbol.transform.localScale = new(0.5f, 0.5f);
-        symbol.transform.localPosition = new(0f, _storage.Constants.IconShift);
+        symbol.transform.localPosition = new(
+            0f,
+            constants.IconStartShift + constants.IconShift
+        );
         SpriteRenderer symbolSprite = symbol.AddComponent<SpriteRenderer>();
-        symbolSprite.sprite = _data.Symbol.Texture;
+        symbolSprite.sprite = _data.Symbol.Icon;
 
         // Создание энергии
         for (int i = 0; i < _data.Energy; i++)
         {
             GameObject energy = new($"energy-{i}");
             energy.transform.SetParent(container);
-            energy.transform.localPosition = new(0f, _storage.Constants.IconShift * i * -1);
+            energy.transform.localPosition = new(
+                0f,
+                constants.IconStartShift + constants.IconShift * i * -1
+            );
             EnergyComponent energyComponent = energy.AddComponent<EnergyComponent>();
             energyComponent.Init(_data.EnergyData);
             energyComponents.Add(energyComponent);
@@ -146,12 +177,16 @@ public class CharacterComponent : MonoBehaviour
     private List<HPComponent> GenerateHP(Transform container)
     {
         List<HPComponent> hpComponents = new();
+        Constants constants = _storage.FieldData.Constants;
         // Создание энергии
         for (int i = 0; i < _data.Energy; i++)
         {
             GameObject hp = new($"hp-{i}");
             hp.transform.SetParent(container);
-            hp.transform.localPosition = new(0f, _storage.Constants.IconShift * i * -1);
+            hp.transform.localPosition = new(
+                0f,
+                constants.IconStartShift + constants.IconShift * i * -1
+            );
             HPComponent hpComponent = hp.AddComponent<HPComponent>();
             hpComponent.Init(_data.HPData);
             hpComponents.Add(hpComponent);

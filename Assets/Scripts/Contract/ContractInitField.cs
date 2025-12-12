@@ -42,12 +42,12 @@ public class ContractInitField
 
         Field field = _storage.FieldData.Field;
         cellContainer.transform.position = new(
-            field.SizeX / 2 * -1,
-            field.SizeY / 2
+            (field.SizeX * field.StepX - field.StepX) / 2 * -1,
+            (field.SizeY * field.StepY - field.StepY) / 2
         );
         symbolContainer.transform.position = new(
-            field.SizeX / 2 * -1,
-            field.SizeY / 2
+            (field.SizeX * field.StepX - field.StepX) / 2 * -1,
+            (field.SizeY * field.StepY - field.StepY) / 2
         );
 
         return (symbolContainer, cellContainer);

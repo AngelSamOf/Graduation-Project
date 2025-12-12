@@ -52,7 +52,7 @@ public class ContractShowSpell
         {
             GameObject spell = new($"spell-{index}");
             spell.transform.SetParent(_spellContainer);
-            spell.transform.localPosition = new(index * _storage.Constants.IconShift, 0f);
+            spell.transform.localPosition = new(index * _storage.FieldData.Constants.IconShift, 0f);
             SpellComponent spellComponent = spell.AddComponent<SpellComponent>();
             spellComponent.Init(spellData, character);
 

@@ -108,6 +108,7 @@ public class ContractCombination
         }
 
         List<Task> tasks = new();
+        Constants constants = _storage.FieldData.Constants;
         // Смещение всех выше стоящих символов на позицию вниз
         int x = positions.First().X;
         int startY = positions.First().Y;
@@ -129,11 +130,11 @@ public class ContractCombination
 
                 // Запуск анимаций перемещения
                 tasks.Add(targetSymbol.MoveSymbol(
-                    _storage.Constants.MoveTime,
+                    constants.MoveTime,
                     symbol.transform.localPosition
                 ));
                 tasks.Add(symbol.MoveSymbol(
-                    _storage.Constants.MoveTime,
+                    constants.MoveTime,
                     _storage.FieldMap[x, startY].transform.localPosition
                 ));
 
@@ -149,6 +150,7 @@ public class ContractCombination
     {
         int symbolIndex = 0;
         List<Task> tasks = new();
+        Constants constants = _storage.FieldData.Constants;
 
         for (int y = _storage.FieldData.Field.SizeY - 1; y >= 0; y--)
         {
@@ -160,7 +162,7 @@ public class ContractCombination
 
             Vector3 cellPosition = _storage.FieldMap[columnIndex, y].transform.localPosition;
 
-            float posX = _storage.Constants.DropStartPosY
+            float posX = constants.DropStartPosY
                 + symbolIndex * _storage.FieldData.Field.StepY;
 
             symbol.transform.localPosition = new Vector3(
@@ -173,7 +175,7 @@ public class ContractCombination
 
             // Запуск анимации падения
             tasks.Add(symbol.MoveSymbol(
-                _storage.Constants.MoveTime,
+                constants.MoveTime,
                 cellPosition
             ));
 

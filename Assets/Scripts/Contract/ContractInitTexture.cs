@@ -50,11 +50,12 @@ public class ContractInitTexture
             throw new Exception("Not found Canvas in game scene!");
         }
         _canvasTransform = canvas.GetComponent<RectTransform>();
+        Constants constants = _storage.FieldData.Constants;
 
         // Инициализация компонентов
         // Текстура панели
         GameObject background = new("top-panel");
-        background.transform.position = new Vector3(0, _storage.Constants.TopPanelY, -1);
+        background.transform.position = new Vector3(0, _storage.FieldData.Constants.TopPanelY, -1);
         SpriteRenderer bgSpriteRenderer = background.AddComponent<SpriteRenderer>();
         bgSpriteRenderer.sprite = _storage.FieldData.Textures.TopPanel;
         // Контейнер для победного UI
@@ -62,10 +63,14 @@ public class ContractInitTexture
         GridLayoutGroup confitionLayout = condition.AddComponent<GridLayoutGroup>();
         _conditionContainer = condition.GetComponent<RectTransform>();
         _conditionContainer.SetParent(_canvasTransform);
-        _conditionContainer.localPosition = new(-2.5f * 72, 6.1f * 72, 0);
+        _conditionContainer.localPosition = new(
+            constants.ConditionPoxX * constants.CanvasPPI,
+            constants.ConditionPoxY * constants.CanvasPPI,
+            0
+        );
         _conditionContainer.localScale = new(1, 1, 1);
         confitionLayout.cellSize = new(1, 1);
-        confitionLayout.spacing = new(150, 0);
+        confitionLayout.spacing = new(constants.ConditionSpacing, 0);
         confitionLayout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
         confitionLayout.constraintCount = 1;
 

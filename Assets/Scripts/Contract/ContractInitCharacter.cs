@@ -38,13 +38,14 @@ public class ContractInitCharacter
         GameObject playerCharacterContainer = new("player-character-container");
         GameObject enemyCharacterContainer = new("enemy-character-container");
 
+        Constants constants = _storage.FieldData.Constants;
         Field field = _storage.FieldData.Field;
         playerCharacterContainer.transform.position = new Vector3(
-            (field.SizeX / 2 + _storage.Constants.CharacterShift) * field.StepX * -1,
+            (field.SizeX / 2 + constants.CharacterShift) * field.StepX * -1,
             0
         );
         enemyCharacterContainer.transform.position = new Vector3(
-            (field.SizeX / 2 + _storage.Constants.CharacterShift) * field.StepX,
+            (field.SizeX / 2 + constants.CharacterShift) * field.StepX,
             0
         );
 

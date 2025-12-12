@@ -13,8 +13,6 @@ public class BattleStorage
         return _instance;
     }
 
-    public readonly Constants Constants = new();
-
     public FieldObject FieldData => _fieldData;
     private FieldObject _fieldData;
     public void SetFieldData(FieldObject data)

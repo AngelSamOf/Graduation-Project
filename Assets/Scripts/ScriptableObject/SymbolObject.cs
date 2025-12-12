@@ -7,4 +7,6 @@ public class SymbolObject : ScriptableObject
     [SerializeField] private string _id;
     public Sprite Texture => _texture;
     [SerializeField] private Sprite _texture;
+    public Sprite Icon => _icon;
+    [SerializeField] private Sprite _icon;
 }

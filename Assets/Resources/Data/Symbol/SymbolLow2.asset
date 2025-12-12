@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: stone (low2)
   _texture: {fileID: 21300000, guid: 9bd0f743e79a2c34c87b88701ab6681d, type: 3}
+  _icon: {fileID: 21300000, guid: 933a47bf8a99dda47b73bfb58b365ae6, type: 3}

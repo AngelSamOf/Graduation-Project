@@ -30,7 +30,7 @@ public class SymbolBase :
         // Получение компонентов с объекта
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
-        _collider.size = new(1.0f, 1.0f);
+        _collider.size = new(2.0f, 2.0f);
 
         // Инициализация компонента
         SetSymbolData(data);

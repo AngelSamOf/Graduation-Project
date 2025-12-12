@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: bloodstone (low3)
   _texture: {fileID: 21300000, guid: 289a49c0215537041a6675c03037ac05, type: 3}
+  _icon: {fileID: 21300000, guid: 0f9c49c0c394e6244a1cdc4cea8a1e9f, type: 3}

@@ -66,6 +66,7 @@ public class Constants
     public readonly Vector2 CharacterColliderSize = new(2f, 2f);
     public readonly float CharacterSubContainerShift = 1.5f;
     public readonly float IconShift = 0.6f;
+    public readonly float TopPanelY = 6.6f;
 }
 
 public enum Direction

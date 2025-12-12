@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: leaves (low1)
   _texture: {fileID: 21300000, guid: ed3f82cc0d975bc418f97d11ab8c6c7a, type: 3}
+  _icon: {fileID: 21300000, guid: 6c8e76adc85f35248a3732472119eff8, type: 3}

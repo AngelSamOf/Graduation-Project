@@ -37,6 +37,12 @@ public class Textures
 {
     public Sprite Background => _background;
     [SerializeField] private Sprite _background;
+    public Sprite TopPanel => _topPanel;
+    [SerializeField] private Sprite _topPanel;
+    public Sprite IconStep => _iconStep;
+    [SerializeField] private Sprite _iconStep;
+    public Sprite IconEnemy => _iconEnemy;
+    [SerializeField] private Sprite _iconEnemy;
 }
 
 [Serializable]

@@ -35,10 +35,23 @@ public class ContractInitTexture
 
     private void InitBackground()
     {
+        // Задний фон
         GameObject background = new("bakcground");
         background.transform.position = new Vector3(0, 0, 2);
         SpriteRenderer bgSpriteRenderer = background.AddComponent<SpriteRenderer>();
         bgSpriteRenderer.sprite = _storage.FieldData.Textures.Background;
+
+        // Верхняя панель
+        GameObject topPanel = new("top-panel");
+        topPanel.transform.position = new Vector3(0, _storage.FieldData.Constants.TopPanelY, -1);
+        SpriteRenderer topPanelRenderer = topPanel.AddComponent<SpriteRenderer>();
+        topPanelRenderer.sprite = _storage.FieldData.Textures.TopPanel;
+
+        // Нижняя панель
+        GameObject bottomPanel = new("bottom-panel");
+        bottomPanel.transform.position = new Vector3(0, -_storage.FieldData.Constants.TopPanelY, -1);
+        SpriteRenderer bottomPanelRenderer = bottomPanel.AddComponent<SpriteRenderer>();
+        bottomPanelRenderer.sprite = _storage.FieldData.Textures.BottomPanel;
     }
 
     private void InitUI()
@@ -52,12 +65,6 @@ public class ContractInitTexture
         _canvasTransform = canvas.GetComponent<RectTransform>();
         Constants constants = _storage.FieldData.Constants;
 
-        // Инициализация компонентов
-        // Текстура панели
-        GameObject background = new("top-panel");
-        background.transform.position = new Vector3(0, _storage.FieldData.Constants.TopPanelY, -1);
-        SpriteRenderer bgSpriteRenderer = background.AddComponent<SpriteRenderer>();
-        bgSpriteRenderer.sprite = _storage.FieldData.Textures.TopPanel;
         // Контейнер для победного UI
         GameObject condition = new("condition-container");
         GridLayoutGroup confitionLayout = condition.AddComponent<GridLayoutGroup>();

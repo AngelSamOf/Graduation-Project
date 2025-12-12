@@ -21,6 +21,7 @@ MonoBehaviour:
   _textures:
     _background: {fileID: 21300000, guid: 351e84707e771c34099ffa941a2b06d1, type: 3}
     _topPanel: {fileID: 21300000, guid: 61f4705ae2f8dd24ba94b830e71b2d62, type: 3}
+    _bottomPanel: {fileID: 21300000, guid: 9327e8e0430bb114ca9a4da94f6d6b03, type: 3}
     _iconStep: {fileID: 21300000, guid: ed4d898776f190842aa8ab78532092b4, type: 3}
     _iconEnemy: {fileID: 21300000, guid: 1686f2430b470e94d9a800521685d50e, type: 3}
   _symbols:
@@ -44,3 +45,17 @@ MonoBehaviour:
       _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
     _isCombinatiobWin: 0
     _combinationConditions: []
+  _constants:
+    _moveTime: 0.5
+    _shiftMove: 0.2
+    _dropStartPosY: 5
+    _characterShift: 2.75
+    _characterColliderSize: {x: 3, y: 4}
+    _characterSubContainerShift: 2.2
+    _iconStartShift: -1
+    _iconShift: 1
+    _topPanelY: 6.6
+    _canvasPPI: 72
+    _conditionPoxY: 6.1
+    _conditionPoxX: -2.5
+    _conditionSpacing: 150

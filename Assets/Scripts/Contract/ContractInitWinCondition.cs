@@ -86,7 +86,7 @@ public class ContractInitWinCondition
 
         _storage.IncreaseSymbolCounter(data.ID, count);
         SymbolCondition targetCondition = _storage.FieldData.Wins.SymbolConditions
-            .Find(condition => condition.SymbolID == data.ID);
+            .Find(condition => condition.Symbol.ID == data.ID);
 
         // Сохраняем, если есть такое условие победы
         if (targetCondition != null)

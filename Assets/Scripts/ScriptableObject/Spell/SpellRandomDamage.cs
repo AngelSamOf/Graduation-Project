@@ -6,7 +6,7 @@ public class SpellRandomDamage : BaseSpell
 {
     [SerializeField] private int _damage;
 
-    public override async void Implement()
+    public override void Implement()
     {
         BattleStorage storage = BattleStorage.GetInstance();
         List<PlayerCharacterComponent> playerCharacters = storage.PlayerCharacter;

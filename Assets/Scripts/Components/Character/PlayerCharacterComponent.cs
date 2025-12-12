@@ -11,6 +11,8 @@ public class PlayerCharacterComponent : CharacterComponent, IPointerClickHandler
     {
         base.Init(data);
 
+        // Костыль
+        // Переопределение data
         _data = (CharacterPlayer)data;
 
         // Получение компонентов  с объекта

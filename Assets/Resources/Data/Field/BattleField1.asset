@@ -13,38 +13,31 @@ MonoBehaviour:
   m_Name: BattleField1
   m_EditorClassIdentifier: 
   _field:
-    _sizeX: 6
-    _sizeY: 6
-    _stepX: 1.1
-    _stepY: 1.1
+    _sizeX: 5
+    _sizeY: 5
+    _stepX: 1
+    _stepY: 1
   _cell: {fileID: 11400000, guid: 34640032ba29a88498c46714116cdfac, type: 2}
+  _textures:
+    _background: {fileID: 21300000, guid: 351e84707e771c34099ffa941a2b06d1, type: 3}
   _symbols:
-  - _weight: 0.125
+  - _weight: 0.25
     _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
-  - _weight: 0.125
+  - _weight: 0.25
     _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
-  - _weight: 0.125
+  - _weight: 0.25
     _symbol: {fileID: 11400000, guid: 70d9b26e919123a4ba29cb32cc236b73, type: 2}
-  - _weight: 0.125
+  - _weight: 0.25
     _symbol: {fileID: 11400000, guid: dbb2908bd5e14b14498e1ab95d38a40b, type: 2}
-  - _weight: 0.125
-    _symbol: {fileID: 11400000, guid: 1303b30b2682024468bc558a90a22746, type: 2}
-  - _weight: 0.125
-    _symbol: {fileID: 11400000, guid: 79a2b271ebf151d40b72c9f59259586b, type: 2}
-  - _weight: 0.125
-    _symbol: {fileID: 11400000, guid: 0089082dd87e66a4ca89bfadc2c604da, type: 2}
-  - _weight: 0.125
-    _symbol: {fileID: 11400000, guid: 589b9bb539385ad4896671d63192da29, type: 2}
   _playerCharacter:
   - {fileID: 11400000, guid: 63291e3e24e2266488cf924cb25d1598, type: 2}
-  _enemyCharacter:
-  - {fileID: 11400000, guid: 2bdaa19ab69ada84aa6a773d4ceb7d41, type: 2}
+  _enemyCharacter: []
   _wins:
     _isStepWin: 1
-    _stepLimit: 8
+    _stepLimit: 15
     _isSymbolWin: 1
     _symbolConditions:
-    - _count: 1
-      _symbolID: 5
+    - _count: 9
+      _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
     _isCombinatiobWin: 0
     _combinationConditions: []

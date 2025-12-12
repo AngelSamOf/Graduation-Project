@@ -29,6 +29,8 @@ public class EntryGate : MonoBehaviour
 
         // Инициализация победных условий
         ContractInitWinCondition.GetInstance().Implement();
+        // Инициализация текстур
+        ContractInitTexture.GetInstance().Implement();
 
         // Инициализация поля
         ContractInitField.GetInstance().Implement();

@@ -13,6 +13,10 @@ public class FieldObject : ScriptableObject
     public CellObject Cell => _cell;
     [SerializeField] private CellObject _cell;
 
+    // Заднийфон
+    public Textures Textures => _textures;
+    [SerializeField] private Textures _textures;
+
     // Символы
     public List<FieldSymbol> Symbols => _symbols;
     [SerializeField] private List<FieldSymbol> _symbols = new();
@@ -26,6 +30,13 @@ public class FieldObject : ScriptableObject
     // Условия победы
     public Wins Wins => _wins;
     [SerializeField] private Wins _wins = new();
+}
+
+[Serializable]
+public class Textures
+{
+    public Sprite Background => _background;
+    [SerializeField] private Sprite _background;
 }
 
 [Serializable]
@@ -74,8 +85,8 @@ public class FieldSymbol
 [Serializable]
 public class SymbolCondition : Condition
 {
-    public string SymbolID => _symbolID;
-    [SerializeField] private string _symbolID;
+    public SymbolObject Symbol => _symbol;
+    [SerializeField] private SymbolObject _symbol;
 }
 
 [Serializable]

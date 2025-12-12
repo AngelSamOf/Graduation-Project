@@ -81,7 +81,7 @@ public class ContractCheckData
             {
                 if (condition.Count <= 0)
                 {
-                    throw new Exception($"The number that must be scored to win is not specified for the {condition.SymbolID} symbol");
+                    throw new Exception($"The number that must be scored to win is not specified for the {condition.Symbol.ID} symbol");
                 }
             }
         }

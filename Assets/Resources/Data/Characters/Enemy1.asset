@@ -16,7 +16,7 @@ MonoBehaviour:
   _hp: 5
   _energy: 2
   _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
-  _texture: {fileID: 21300000, guid: 8cb7ec5061de9824da6224a749e7499c, type: 3}
+  _texture: {fileID: 21300000, guid: 400bc207d38f7a649b937c811ac36500, type: 3}
   _energyData: {fileID: 11400000, guid: 9c9bcd971b46cca43826f42dcd2fa45d, type: 2}
   _hpData: {fileID: 11400000, guid: fb8ec408d60a70349a0bf29c13491da5, type: 2}
   _spell: {fileID: 11400000, guid: f3972337f935e3a42930ad88f9e948bb, type: 2}

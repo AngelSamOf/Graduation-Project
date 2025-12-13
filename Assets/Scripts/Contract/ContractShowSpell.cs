@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ContractShowSpell
@@ -34,6 +35,7 @@ public class ContractShowSpell
         }
 
         GenerateSpell(character);
+        GeneratePassiveSpell(character);
 
         Debug.Log("Contract \"Show Spell\": end Implement");
     }
@@ -41,7 +43,7 @@ public class ContractShowSpell
     private Transform GenerateSpellContainer()
     {
         GameObject spellContainer = new("spell-container");
-        spellContainer.transform.position = new(0, -4.5f, 2f);
+        spellContainer.transform.position = new(0, -6.7f, -2f);
         return spellContainer.transform;
     }
 
@@ -58,5 +60,14 @@ public class ContractShowSpell
 
             index += 1;
         }
+    }
+
+    private void GeneratePassiveSpell(PlayerCharacterComponent character)
+    {
+        GameObject spell = new("passive-spell");
+        spell.transform.SetParent(_spellContainer);
+        spell.transform.localPosition = new(3.4f, 0f);
+        SpriteRenderer spellRenderer = spell.AddComponent<SpriteRenderer>();
+        spellRenderer.sprite = character.Data.PassiveSpell.Texture;
     }
 }

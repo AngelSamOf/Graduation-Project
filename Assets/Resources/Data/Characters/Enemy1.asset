@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Enemy1
   m_EditorClassIdentifier: 
   _name: enemy-character-1
-  _hp: 5
-  _energy: 2
-  _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
-  _texture: {fileID: 21300000, guid: 400bc207d38f7a649b937c811ac36500, type: 3}
+  _hp: 2
+  _energy: 1
+  _symbol: {fileID: 11400000, guid: 70d9b26e919123a4ba29cb32cc236b73, type: 2}
+  _texture: {fileID: 21300000, guid: 6e19776ed23b6524797c91acf7e30082, type: 3}
   _energyData: {fileID: 11400000, guid: 9c9bcd971b46cca43826f42dcd2fa45d, type: 2}
   _hpData: {fileID: 11400000, guid: fb8ec408d60a70349a0bf29c13491da5, type: 2}
   _spell: {fileID: 11400000, guid: f3972337f935e3a42930ad88f9e948bb, type: 2}

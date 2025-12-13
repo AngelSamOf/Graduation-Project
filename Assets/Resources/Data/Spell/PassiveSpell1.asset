@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b46fc9ea3c074baa9d357ff956a3c, type: 3}
   m_Name: PassiveSpell1
   m_EditorClassIdentifier: 
-  _texture: {fileID: 0}
+  _texture: {fileID: 21300000, guid: 87516edff8fd74349985ec099b223579, type: 3}
   _cost: 0
   _removeStepCount: 999

@@ -49,6 +49,12 @@ public class Textures
     [SerializeField] private Sprite _iconStep;
     public Sprite IconEnemy => _iconEnemy;
     [SerializeField] private Sprite _iconEnemy;
+    public Sprite WinPopup => _winPopup;
+    [SerializeField] private Sprite _winPopup;
+    public Sprite LosePopup => _losePopup;
+    [SerializeField] private Sprite _losePopup;
+    public Sprite Fill => _fill;
+    [SerializeField] private Sprite _fill;
 }
 
 [Serializable]

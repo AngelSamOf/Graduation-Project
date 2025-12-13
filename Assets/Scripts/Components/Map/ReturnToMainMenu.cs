@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class MapPointComponent : MonoBehaviour, IPointerClickHandler
+public class ReturnToMainMenu : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private string _sceneName = "Battle";
-    [SerializeField] private FieldObject _missionData;
+    [SerializeField] private string _sceneName = "Main";
 
     public void OnPointerClick(PointerEventData eventData)
     {

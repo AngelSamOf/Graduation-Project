@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: SymbolMiddle1
   m_EditorClassIdentifier: 
   _id: sun (middle1)
-  _texture: {fileID: 21300000, guid: 421e15dc6126ff544b96050679189b36, type: 3}
+  _texture: {fileID: 21300000, guid: b28b8a8361d60164b97f283c2e264383, type: 3}
+  _icon: {fileID: 0}

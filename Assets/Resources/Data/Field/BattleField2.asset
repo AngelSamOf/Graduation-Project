@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9acbfe4bcf850c74184fb88fed1d66b0, type: 3}
-  m_Name: BattleField1
+  m_Name: BattleField2
   m_EditorClassIdentifier: 
   _field:
-    _sizeX: 5
-    _sizeY: 5
+    _sizeX: 6
+    _sizeY: 6
     _stepX: 2
     _stepY: 2
   _cell: {fileID: 11400000, guid: 34640032ba29a88498c46714116cdfac, type: 2}
   _textures:
-    _background: {fileID: 21300000, guid: 351e84707e771c34099ffa941a2b06d1, type: 3}
+    _background: {fileID: 21300000, guid: aa2683a1d426c4748a1745acbff52a3e, type: 3}
     _topPanel: {fileID: 21300000, guid: 61f4705ae2f8dd24ba94b830e71b2d62, type: 3}
     _bottomPanel: {fileID: 21300000, guid: 9327e8e0430bb114ca9a4da94f6d6b03, type: 3}
     _iconStep: {fileID: 21300000, guid: ed4d898776f190842aa8ab78532092b4, type: 3}
@@ -28,31 +28,36 @@ MonoBehaviour:
     _losePopup: {fileID: 21300000, guid: 920e07bba1603a2449ef5fdf0637b6c0, type: 3}
     _fill: {fileID: 21300000, guid: b4cf462ca2b970a46bf428aa1d1d8a2b, type: 3}
   _symbols:
-  - _weight: 0.25
+  - _weight: 0.175
     _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
-  - _weight: 0.25
+  - _weight: 0.175
     _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
-  - _weight: 0.25
+  - _weight: 0.175
     _symbol: {fileID: 11400000, guid: 70d9b26e919123a4ba29cb32cc236b73, type: 2}
-  - _weight: 0.25
+  - _weight: 0.175
     _symbol: {fileID: 11400000, guid: dbb2908bd5e14b14498e1ab95d38a40b, type: 2}
+  - _weight: 0.1
+    _symbol: {fileID: 11400000, guid: 1303b30b2682024468bc558a90a22746, type: 2}
+  - _weight: 0.1
+    _symbol: {fileID: 11400000, guid: 79a2b271ebf151d40b72c9f59259586b, type: 2}
+  - _weight: 0.1
+    _symbol: {fileID: 11400000, guid: 0089082dd87e66a4ca89bfadc2c604da, type: 2}
   _playerCharacter:
-  - {fileID: 11400000, guid: 63291e3e24e2266488cf924cb25d1598, type: 2}
-  _enemyCharacter: []
+  - {fileID: 11400000, guid: f72cd6ec9a520ff42bf2588f671e02dd, type: 2}
+  _enemyCharacter:
+  - {fileID: 11400000, guid: 2bdaa19ab69ada84aa6a773d4ceb7d41, type: 2}
   _wins:
     _isStepWin: 1
     _stepLimit: 15
-    _isSymbolWin: 1
-    _symbolConditions:
-    - _count: 25
-      _symbol: {fileID: 11400000, guid: 787a618caff1726409b45157d31bf8bc, type: 2}
+    _isSymbolWin: 0
+    _symbolConditions: []
     _isCombinatiobWin: 0
     _combinationConditions: []
   _constants:
     _moveTime: 0.5
     _shiftMove: 0.2
     _dropStartPosY: 5
-    _characterShift: 2.75
+    _characterShift: 1.5
     _characterColliderSize: {x: 3, y: 4}
     _characterSubContainerShift: 2.2
     _iconStartShift: -1

@@ -16,7 +16,7 @@ public class SpellComponent : MonoBehaviour, IPointerClickHandler
         spriteRenderer.sprite = _data.Texture;
 
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        collider.size = new(0.5f, 0.5f);
+        collider.size = new(1.0f, 1.0f);
 
         GenerateEnergy();
     }
@@ -40,7 +40,7 @@ public class SpellComponent : MonoBehaviour, IPointerClickHandler
             GameObject energy = new($"energy-{i}");
             energy.transform.SetParent(transform);
             energy.transform.localScale = new(0.25f, 0.25f);
-            energy.transform.localPosition = new(-0.2f + (0.15f * i), 0.35f);
+            energy.transform.localPosition = new(-0.3f + (0.25f * i), -0.6f);
             SpriteRenderer energyRenderer = energy.AddComponent<SpriteRenderer>();
             energyRenderer.sprite = _character.Data.EnergyData.TextureFill;
         }

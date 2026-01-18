@@ -13,6 +13,11 @@ public class ContractInitCharacter
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Init Character\": start Implement");

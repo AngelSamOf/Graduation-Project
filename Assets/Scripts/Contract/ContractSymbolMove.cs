@@ -12,11 +12,13 @@ public class ContractSymbolMove
 
     public static ContractSymbolMove GetInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new();
-        }
+        _instance ??= new();
         return _instance;
+    }
+
+    public static void ResetInstance()
+    {
+        _instance = null;
     }
 
     public async Task Implement(

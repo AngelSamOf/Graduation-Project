@@ -6,11 +6,12 @@ public class BattleStorage
     private BattleStorage() { }
     public static BattleStorage GetInstance()
     {
-        if (_instance == null)
-        {
-            _instance = new();
-        }
+        _instance ??= new();
         return _instance;
+    }
+    public static void ResetInstance()
+    {
+        _instance = null;
     }
 
     public FieldObject FieldData => _fieldData;

@@ -16,6 +16,11 @@ public class ContractInitWinCondition
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Init Win Condition\": start Implement");

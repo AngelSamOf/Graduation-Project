@@ -17,6 +17,11 @@ public class ContractCombination
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public async Task Implement()
     {
         if (_isImplement)

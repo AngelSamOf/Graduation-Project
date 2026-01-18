@@ -13,6 +13,11 @@ public class ContractCheckData
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Check Data\": start Implement");

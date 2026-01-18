@@ -9,6 +9,7 @@ public class MapPointComponent : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameStorage.SetFieldData(_missionData);
         SceneManager.LoadScene(_sceneName);
     }
 }

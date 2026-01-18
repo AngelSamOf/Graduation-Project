@@ -17,6 +17,11 @@ public class ContractCheckField
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Check Field\": start Implement");

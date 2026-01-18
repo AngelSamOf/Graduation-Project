@@ -6,4 +6,12 @@ static class EventEmitter
     static public Action EndMoveSymbol;
     static public Action<WinCombination> WinCombination;
     static public Action<PlayerCharacterComponent> ClickCharacter;
+
+    public static void ClearAction()
+    {
+        MoveSymbol = null;
+        EndMoveSymbol = null;
+        WinCombination = null;
+        ClickCharacter = null;
+    }
 }

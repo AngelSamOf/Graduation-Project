@@ -13,6 +13,11 @@ public class ContractInitField
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Init Field\": start Implement");

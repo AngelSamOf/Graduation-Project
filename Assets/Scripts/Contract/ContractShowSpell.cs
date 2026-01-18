@@ -15,6 +15,11 @@ public class ContractShowSpell
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement(PlayerCharacterComponent character)
     {
         Debug.Log("Contract \"Show Spell\": start Implement");

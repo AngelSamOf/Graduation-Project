@@ -11,6 +11,11 @@ public class ContractLoseGame
         return _instance;
     }
 
+    public static void ResetInstance()
+    {
+        _instance = null;
+    }
+
     public void Implement()
     {
         Debug.Log("Contract \"Lose Game\": start Implement");

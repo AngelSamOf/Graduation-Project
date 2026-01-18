@@ -5,13 +5,29 @@ using System.Collections.Generic;
 public class SpellRandomDamage : BaseSpell
 {
     [SerializeField] private int _damage;
+    [SerializeField] private TargetUnit _target = TargetUnit.Player;
 
     public override void Implement()
     {
         BattleStorage storage = BattleStorage.GetInstance();
-        List<PlayerCharacterComponent> playerCharacters = storage.PlayerCharacter;
 
-        int characterIndex = Random.Range(0, playerCharacters.Count - 1);
-        playerCharacters[characterIndex].TakeDamage(_damage);
+        if (_target == TargetUnit.Player)
+        {
+            List<PlayerCharacterComponent> playerCharacters = storage.PlayerCharacter;
+            int characterIndex = Random.Range(0, playerCharacters.Count);
+            playerCharacters[characterIndex].TakeDamage(_damage);
+        }
+        else
+        {
+            List<EnemeyCharacterComponents> enemeyCharacters = storage.EnemyCharacter;
+            int characterIndex = Random.Range(0, enemeyCharacters.Count);
+            enemeyCharacters[characterIndex].TakeDamage(_damage);
+        }
+    }
+
+    protected enum TargetUnit
+    {
+        Player,
+        Enemy
     }
 }

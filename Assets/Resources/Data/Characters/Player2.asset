@@ -20,5 +20,5 @@ MonoBehaviour:
   _energyData: {fileID: 11400000, guid: 9c9bcd971b46cca43826f42dcd2fa45d, type: 2}
   _hpData: {fileID: 11400000, guid: fb8ec408d60a70349a0bf29c13491da5, type: 2}
   _spells:
-  - {fileID: 11400000, guid: d68bb3b906b701c479dcb0281598409f, type: 2}
-  _passiveSpell: {fileID: 11400000, guid: 208f590d6c5f98e4bb8bd8263b54f262, type: 2}
+  - {fileID: 11400000, guid: 760d9321e9e6dc446b967470251ee8a8, type: 2}
+  _passiveSpell: {fileID: 11400000, guid: 18979870fda102d469f883f47bd2fafb, type: 2}

@@ -179,7 +179,7 @@ public class CharacterComponent : MonoBehaviour
         List<HPComponent> hpComponents = new();
         Constants constants = _storage.FieldData.Constants;
         // Создание энергии
-        for (int i = 0; i < _data.Energy; i++)
+        for (int i = 0; i < _data.HP; i++)
         {
             GameObject hp = new($"hp-{i}");
             hp.transform.SetParent(container);

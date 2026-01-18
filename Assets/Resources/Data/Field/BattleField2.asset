@@ -53,6 +53,7 @@ MonoBehaviour:
     _symbolConditions: []
     _isCombinatiobWin: 0
     _combinationConditions: []
+    _isEnemyKill: 1
   _constants:
     _moveTime: 0.5
     _shiftMove: 0.2
@@ -66,4 +67,4 @@ MonoBehaviour:
     _canvasPPI: 72
     _conditionPoxY: 6.1
     _conditionPoxX: -2.5
-    _conditionSpacing: 150
+    _conditionSpacing: 120

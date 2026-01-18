@@ -68,6 +68,10 @@ public class ContractInitWinCondition
             }
             EventEmitter.WinCombination += CheckCombination;
         }
+        if (wins.IsEnemyKill)
+        {
+            EventEmitter.CharacterDeath += CheckKills;
+        }
 
         Debug.Log("Contract \"Init Win Condition\": end Implement");
     }
@@ -131,6 +135,26 @@ public class ContractInitWinCondition
         if (_storage.VictoryConditions <= _storage.FulfilledVictoryConditions)
         {
             _contractWinGame.Implement();
+        }
+    }
+
+    private void CheckKills(bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            _storage.IncreaseDeathPlayerCharacter();
+            if (_storage.FieldData.PlayerCharacter.Count <= _storage.DeathPlayerCharacter)
+            {
+                _contractLoseGame.Implement();
+            }
+        }
+        else
+        {
+            _storage.IncreaseDeathEnemyCharacter();
+            if (_storage.FieldData.EnemyCharacter.Count <= _storage.DeathEnemyCharacter)
+            {
+                _contractWinGame.Implement();
+            }
         }
     }
 }

@@ -26,4 +26,10 @@ public class EnemeyCharacterComponents : CharacterComponent
         _data.Spell.Implement();
         RemoveEnergy(_data.Spell.Cost);
     }
+
+    protected override void OnDead()
+    {
+        base.OnDead();
+        EventEmitter.CharacterDeath.Invoke(false);
+    }
 }

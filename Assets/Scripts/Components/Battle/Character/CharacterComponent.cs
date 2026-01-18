@@ -53,9 +53,9 @@ public class CharacterComponent : MonoBehaviour
         }
     }
 
-    private void OnDead()
+    protected virtual void OnDead()
     {
-        Debug.Log($"Character {_data.name} dead!");
+        _mainTexture.sprite = _data.DeathTexture;
     }
 
     public void RemoveEnergy(int count)

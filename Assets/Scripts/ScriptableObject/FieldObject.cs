@@ -88,6 +88,9 @@ public class Wins
     [SerializeField] private bool _isCombinatiobWin = false;
     public List<CombinationCondition> CombinationConditions => _combinationConditions;
     [SerializeField] private List<CombinationCondition> _combinationConditions = new();
+    // Победа по убийству врагов
+    public bool IsEnemyKill => _isEnemyKill;
+    [SerializeField] private bool _isEnemyKill = false;
 }
 
 [Serializable]

@@ -14,6 +14,7 @@ public class ContractInitTexture
 
     private TextMeshPro _tmpStep;
     private Dictionary<string, TextMeshPro> _tmpSymbols = new();
+    private TextMeshPro _tmpKills;
 
     public static ContractInitTexture GetInstance()
     {
@@ -86,8 +87,10 @@ public class ContractInitTexture
         confitionLayout.constraint = GridLayoutGroup.Constraint.FixedRowCount;
         confitionLayout.constraintCount = 1;
 
+        // Инициализация победных условий (визуально)
         InitStep();
         InitSymbolConditions();
+        InitKillEnemy();
     }
 
     private void InitStep()
@@ -160,5 +163,44 @@ public class ContractInitTexture
             .Find(condition => condition.Symbol.ID == combination.ID);
 
         tmp.text = $"{_storage.SymbolCount[combination.ID]}/{targetCondition.Count}";
+    }
+
+    private void InitKillEnemy()
+    {
+        Wins wins = _storage.FieldData.Wins;
+        if (!wins.IsEnemyKill) return;
+
+        GameObject tmpObject = new($"enemy-text");
+        _tmpKills = tmpObject.AddComponent<TextMeshPro>();
+        RectTransform tmpTransform = _tmpKills.GetComponent<RectTransform>();
+        tmpTransform.SetParent(_conditionContainer);
+        tmpTransform.localPosition = new(0, 0, 0);
+        _tmpKills.fontSize = 8;
+        _tmpKills.text = $"0/{_storage.FieldData.EnemyCharacter.Count}";
+        _tmpKills.color = new(0, 0, 0);
+        _tmpKills.enableWordWrapping = false;
+        _tmpSymbols.Add(_storage.DeathEnemyCharacter.ToString(), _tmpKills);
+
+        GameObject icon = new($"enemy-icon");
+        Image iconImage = icon.AddComponent<Image>();
+        RectTransform iconTransform = icon.GetComponent<RectTransform>();
+        iconTransform.SetParent(_conditionContainer);
+        iconTransform.localPosition = new(0, 0, 0);
+        iconImage.sprite = _storage.FieldData.Textures.IconEnemy;
+
+        EventEmitter.CharacterDeath += UpdateEnemy;
+    }
+
+    public void UpdateEnemy(bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            return;
+        }
+
+        int enemyCount = _storage.FieldData.EnemyCharacter.Count;
+        int enemyDeat = _storage.DeathEnemyCharacter;
+
+        _tmpKills.text = $"{enemyDeat}/{enemyCount}";
     }
 }

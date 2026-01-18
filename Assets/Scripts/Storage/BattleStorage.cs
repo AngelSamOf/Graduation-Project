@@ -104,11 +104,25 @@ public class BattleStorage
         _playerCharacter = characters;
     }
 
+    public int DeathPlayerCharacter => _deathPlayerCharacter;
+    private int _deathPlayerCharacter = 0;
+    public void IncreaseDeathPlayerCharacter()
+    {
+        _deathPlayerCharacter += 1;
+    }
+
     public List<EnemeyCharacterComponents> EnemyCharacter => _enemyCharacter;
     private List<EnemeyCharacterComponents> _enemyCharacter;
     public void SetEnemyCharacter(List<EnemeyCharacterComponents> characters)
     {
         _enemyCharacter = characters;
+    }
+
+    public int DeathEnemyCharacter => _deathEnemyCharacter;
+    private int _deathEnemyCharacter = 0;
+    public void IncreaseDeathEnemyCharacter()
+    {
+        _deathEnemyCharacter += 1;
     }
 }
 

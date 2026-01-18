@@ -12,6 +12,8 @@ public class BaseCharacter : ScriptableObject
     [SerializeField] private SymbolObject _symbol;
     public Sprite Texure => _texture;
     [SerializeField] private Sprite _texture;
+    public Sprite DeathTexture => _deathTexture;
+    [SerializeField] private Sprite _deathTexture;
 
     public EnergyObject EnergyData => _energyData;
     [SerializeField] private EnergyObject _energyData;

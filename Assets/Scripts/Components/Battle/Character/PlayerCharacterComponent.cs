@@ -41,4 +41,10 @@ public class PlayerCharacterComponent : CharacterComponent, IPointerClickHandler
 
         _data.PassiveSpell.Implement();
     }
+
+    protected override void OnDead()
+    {
+        base.OnDead();
+        EventEmitter.CharacterDeath.Invoke(true);
+    }
 }

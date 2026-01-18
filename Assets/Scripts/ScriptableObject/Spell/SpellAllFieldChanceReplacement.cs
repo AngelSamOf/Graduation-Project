@@ -7,7 +7,7 @@ public class SpellAllFieldChanceReplacement : BaseSpell
     [SerializeField] private string _symbolID;
     [SerializeField] private int _changeReplace;
 
-    public override async void Implement()
+    public override void Implement()
     {
         BattleStorage storage = BattleStorage.GetInstance();
 

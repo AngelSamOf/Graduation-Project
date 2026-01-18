@@ -113,5 +113,14 @@ public class ContractCheckData
                 }
             }
         }
+
+        // Проверка убийства врагов
+        if (wins.IsEnemyKill)
+        {
+            if (_storage.FieldData.EnemyCharacter.Count <= 0)
+            {
+                throw new Exception("No enemy characters have been added when the kill condition is set!");
+            }
+        }
     }
 }

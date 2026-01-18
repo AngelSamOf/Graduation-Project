@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemySpell1
   m_EditorClassIdentifier: 
   _texture: {fileID: 0}
-  _cost: 2
+  _cost: 1
   _damage: 1

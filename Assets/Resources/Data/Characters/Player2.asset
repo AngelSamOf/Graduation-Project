@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01495e8c2d73ab449bf905b836d3ac08, type: 3}
   m_Name: Player2
   m_EditorClassIdentifier: 
-  _name: player-character-1
-  _hp: 5
+  _name: player-character-2
+  _hp: 2
   _energy: 2
   _symbol: {fileID: 11400000, guid: 9128487731783e54086eae06bb15a4fb, type: 2}
   _texture: {fileID: 21300000, guid: 3c6e273058736bf4a8dec1a2b58b9d26, type: 3}

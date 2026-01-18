@@ -11,7 +11,7 @@ public class SpellRandomDamage : BaseSpell
         BattleStorage storage = BattleStorage.GetInstance();
         List<PlayerCharacterComponent> playerCharacters = storage.PlayerCharacter;
 
-        int characterIndex = Random.Range(0, playerCharacters.Count);
+        int characterIndex = Random.Range(0, playerCharacters.Count - 1);
         playerCharacters[characterIndex].TakeDamage(_damage);
     }
 }
